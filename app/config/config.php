@@ -3,6 +3,11 @@
 use Phalcon\Config;
 use Phalcon\Logger;
 
+//defined('APP_PATH') || define('APP_PATH', realpath('.'));
+defined('APP_PATH') || define('APP_PATH', realpath('.').'/app');
+
+defined('BASE_PATH') || define('BASE_PATH', realpath('.'));
+
 return new Config([
     'database' => [
         'adapter' => 'Mysql',
