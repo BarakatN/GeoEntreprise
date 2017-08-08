@@ -1,5 +1,5 @@
 <?php
-
+ namespace Vokuro\Models  ; 
 class Categorieemploye extends \Phalcon\Mvc\Model
 {
 

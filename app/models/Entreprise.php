@@ -1,5 +1,5 @@
 <?php
-
+namespace Vokuro\Models  ; 
 class Entreprise extends \Phalcon\Mvc\Model
 {
 
@@ -80,13 +80,6 @@ class Entreprise extends \Phalcon\Mvc\Model
      * @Column(type="string", length=45, nullable=false)
      */
     public $Rayonnement;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=45, nullable=false)
-     */
-    public $Transport_matricule;
 
     /**
      * Initialize method for model.

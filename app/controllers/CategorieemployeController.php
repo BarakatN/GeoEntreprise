@@ -1,6 +1,6 @@
 <?php
 namespace Vokuro\Controllers ; 
-
+use Vokuro\Models\categorieemploye;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -13,16 +13,17 @@ class CategorieemployeController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+         $this->view->setLayout("private");
     }
 
     /**
      * Searches for categorieemploye
      */
     public function searchAction()
-    {
+    { $this->view->setLayout("private");
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Categorieemploye', $_POST);
+            $query = Criteria::fromInput($this->di, 'Vokuro\Models\categorieemploye', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -60,7 +61,7 @@ class CategorieemployeController extends ControllerBase
      */
     public function newAction()
     {
-
+ $this->view->setLayout("private");
     }
 
     /**
@@ -70,6 +71,8 @@ class CategorieemployeController extends ControllerBase
      */
     public function editAction($type)
     {
+
+        $this->view->setLayout("private");
         if (!$this->request->isPost()) {
 
             $categorieemploye = Categorieemploye::findFirstBytype($type);
@@ -100,6 +103,7 @@ class CategorieemployeController extends ControllerBase
      */
     public function createAction()
     {
+         $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "categorieemploye",
@@ -144,7 +148,7 @@ class CategorieemployeController extends ControllerBase
      */
     public function saveAction()
     {
-
+     $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "categorieemploye",
@@ -204,7 +208,8 @@ class CategorieemployeController extends ControllerBase
      * @param string $type
      */
     public function deleteAction($type)
-    {
+    {   
+        $this->view->setLayout("private");
         $categorieemploye = Categorieemploye::findFirstBytype($type);
         if (!$categorieemploye) {
             $this->flash->error("categorieemploye was not found");

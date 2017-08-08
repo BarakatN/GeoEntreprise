@@ -17,7 +17,10 @@
               'Users': 'users',
               'Profiles': 'profiles',
               'Permissions': 'permissions',
-              'Gestion de Contact': 'contact'
+              'Contacts': 'contact',
+              'Employés': 'categorieemploye',
+              'Entreprises': 'entreprise'
+
 
 
 
