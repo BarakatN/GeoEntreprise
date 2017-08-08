@@ -29,14 +29,13 @@
             <th>Denomination</th>
             <th>Ville</th>
             <th>Pays</th>
-            <th>Code  Of Postal</th>
-            <th>Capital  Of Social</th>
+            <th>Code Of Postal</th>
+            <th>Capital Of Social</th>
             <th>Forme Of Juridique</th>
             <th>Immatriculation</th>
             <th>Ca</th>
             <th>Date Of Creation</th>
             <th>Rayonnement</th>
-            <th>Transport Of Matricule</th>
 
                 <th></th>
                 <th></th>
@@ -49,14 +48,13 @@
             <td><?php echo $entreprise->denomination ?></td>
             <td><?php echo $entreprise->ville ?></td>
             <td><?php echo $entreprise->pays ?></td>
-            <td><?php echo $entreprise->code _postal ?></td>
-            <td><?php echo $entreprise->capital _social ?></td>
+            <td><?php echo $entreprise->code_postal ?></td>
+            <td><?php echo $entreprise->capital_social ?></td>
             <td><?php echo $entreprise->forme_juridique ?></td>
             <td><?php echo $entreprise->immatriculation ?></td>
             <td><?php echo $entreprise->ca ?></td>
             <td><?php echo $entreprise->date_creation ?></td>
             <td><?php echo $entreprise->rayonnement ?></td>
-            <td><?php echo $entreprise->transport_matricule ?></td>
 
                 <td><?php echo $this->tag->linkTo(["entreprise/edit/" . $entreprise->siren, "Edit"]); ?></td>
                 <td><?php echo $this->tag->linkTo(["entreprise/delete/" . $entreprise->siren, "Delete"]); ?></td>

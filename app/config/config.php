@@ -24,7 +24,7 @@ return new Config([
         'libraryDir'     => APP_PATH . '/library/',
         'pluginsDir'     => APP_PATH . '/plugins/',
         'cacheDir'       => BASE_PATH . '/cache/',
-        'baseUri'        => '/vokuro/',
+        'baseUri'        => '/GeoEntreprise/',
         'publicUrl'      => 'vokuro.phalconphp.com',
         'cryptSalt'      => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'
     ],

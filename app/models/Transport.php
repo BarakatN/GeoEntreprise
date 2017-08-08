@@ -1,5 +1,5 @@
 <?php
-
+namespace Vokuro\Models;
 class Transport extends \Phalcon\Mvc\Model
 {
 
