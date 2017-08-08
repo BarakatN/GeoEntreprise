@@ -1,5 +1,5 @@
 <?php
-
+namespace Vokuro\Domaine;
 class Domaine extends \Phalcon\Mvc\Model
 {
 

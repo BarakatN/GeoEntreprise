@@ -1,5 +1,5 @@
 <?php
-
+namespace Vokuro\Models;
 class Etablissement extends \Phalcon\Mvc\Model
 {
 

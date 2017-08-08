@@ -5,7 +5,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        
+
       </a>
       {{ link_to(null, 'class': 'brand', 'GeoEntreprise')}}
         <div class="nav-collapse">
@@ -17,9 +17,14 @@
               'Users': 'users',
               'Profiles': 'profiles',
               'Permissions': 'permissions',
-              'Contacts': 'contact',
-              'Employés': 'categorieemploye',
               'Entreprises': 'entreprise'
+              'Employés': 'categorieemploye',
+              'Contact': 'contact',
+              'Transport':'transport',
+              'Departement':'departement',
+              'Etablissement':'etablissement',
+              'Domaine':'domaine'
+              
 
 
 

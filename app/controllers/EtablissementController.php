@@ -1,5 +1,7 @@
 <?php
- 
+namespace Vokuro\Controllers ;
+
+use Vokuro\Models\Etablissement;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -12,6 +14,7 @@ class EtablissementController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+          $this->view->setLayout("private");
     }
 
     /**
@@ -19,9 +22,10 @@ class EtablissementController extends ControllerBase
      */
     public function searchAction()
     {
+        $this->view->setLayout("private");
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Etablissement', $_POST);
+            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Etablissement', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -59,7 +63,7 @@ class EtablissementController extends ControllerBase
      */
     public function newAction()
     {
-
+      $this->view->setLayout("private");
     }
 
     /**
@@ -69,6 +73,7 @@ class EtablissementController extends ControllerBase
      */
     public function editAction($siret)
     {
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
 
             $etablissement = Etablissement::findFirstBysiret($siret);
@@ -89,7 +94,7 @@ class EtablissementController extends ControllerBase
             $this->tag->setDefault("lantitude", $etablissement->lantitude);
             $this->tag->setDefault("longitude", $etablissement->longitude);
             $this->tag->setDefault("entreprise_siren", $etablissement->entreprise_siren);
-            
+
         }
     }
 
@@ -98,6 +103,7 @@ class EtablissementController extends ControllerBase
      */
     public function createAction()
     {
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "etablissement",
@@ -112,7 +118,7 @@ class EtablissementController extends ControllerBase
         $etablissement->lantitude = $this->request->getPost("lantitude");
         $etablissement->longitude = $this->request->getPost("longitude");
         $etablissement->entreprise_siren = $this->request->getPost("entreprise_siren");
-        
+
 
         if (!$etablissement->save()) {
             foreach ($etablissement->getMessages() as $message) {
@@ -141,7 +147,7 @@ class EtablissementController extends ControllerBase
      */
     public function saveAction()
     {
-
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "etablissement",
@@ -169,7 +175,7 @@ class EtablissementController extends ControllerBase
         $etablissement->lantitude = $this->request->getPost("lantitude");
         $etablissement->longitude = $this->request->getPost("longitude");
         $etablissement->entreprise_siren = $this->request->getPost("entreprise_siren");
-        
+
 
         if (!$etablissement->save()) {
 
@@ -201,6 +207,7 @@ class EtablissementController extends ControllerBase
      */
     public function deleteAction($siret)
     {
+      $this->view->setLayout("private");
         $etablissement = Etablissement::findFirstBysiret($siret);
         if (!$etablissement) {
             $this->flash->error("etablissement was not found");

@@ -1,5 +1,7 @@
 <?php
- 
+namespace Vokuro\Controllers ;
+
+use Vokuro\Models\Domaine;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -12,6 +14,7 @@ class DomaineController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+        $this->view->setLayout("private");
     }
 
     /**
@@ -19,9 +22,10 @@ class DomaineController extends ControllerBase
      */
     public function searchAction()
     {
+      $this->view->setLayout("private");
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Domaine', $_POST);
+            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Domaine', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -59,7 +63,7 @@ class DomaineController extends ControllerBase
      */
     public function newAction()
     {
-
+      $this->view->setLayout("private");
     }
 
     /**
@@ -69,6 +73,7 @@ class DomaineController extends ControllerBase
      */
     public function editAction($id)
     {
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
 
             $domaine = Domaine::findFirstByid($id);
@@ -88,7 +93,7 @@ class DomaineController extends ControllerBase
             $this->tag->setDefault("id", $domaine->id);
             $this->tag->setDefault("nom", $domaine->nom);
             $this->tag->setDefault("description", $domaine->description);
-            
+
         }
     }
 
@@ -97,6 +102,7 @@ class DomaineController extends ControllerBase
      */
     public function createAction()
     {
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "domaine",
@@ -110,7 +116,7 @@ class DomaineController extends ControllerBase
         $domaine->id = $this->request->getPost("id");
         $domaine->nom = $this->request->getPost("nom");
         $domaine->description = $this->request->getPost("description");
-        
+
 
         if (!$domaine->save()) {
             foreach ($domaine->getMessages() as $message) {
@@ -139,7 +145,7 @@ class DomaineController extends ControllerBase
      */
     public function saveAction()
     {
-
+        $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "domaine",
@@ -166,7 +172,7 @@ class DomaineController extends ControllerBase
         $domaine->id = $this->request->getPost("id");
         $domaine->nom = $this->request->getPost("nom");
         $domaine->description = $this->request->getPost("description");
-        
+
 
         if (!$domaine->save()) {
 
@@ -198,6 +204,7 @@ class DomaineController extends ControllerBase
      */
     public function deleteAction($id)
     {
+      $this->view->setLayout("private");
         $domaine = Domaine::findFirstByid($id);
         if (!$domaine) {
             $this->flash->error("domaine was not found");

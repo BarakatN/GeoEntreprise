@@ -1,5 +1,7 @@
 <?php
- 
+namespace Vokuro\Controllers ;
+
+use Vokuro\Models\Transport;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -12,6 +14,7 @@ class TransportController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
+        $this->view->setLayout("private");
     }
 
     /**
@@ -19,9 +22,10 @@ class TransportController extends ControllerBase
      */
     public function searchAction()
     {
+      $this->view->setLayout("private");
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Transport', $_POST);
+            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Transport', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -59,7 +63,7 @@ class TransportController extends ControllerBase
      */
     public function newAction()
     {
-
+      $this->view->setLayout("private");
     }
 
     /**
@@ -69,6 +73,7 @@ class TransportController extends ControllerBase
      */
     public function editAction($matricule)
     {
+      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
 
             $transport = Transport::findFirstBymatricule($matricule);
@@ -89,7 +94,7 @@ class TransportController extends ControllerBase
             $this->tag->setDefault("model", $transport->model);
             $this->tag->setDefault("type", $transport->type);
             $this->tag->setDefault("entreprise_siren", $transport->entreprise_siren);
-            
+
         }
     }
 
@@ -98,6 +103,7 @@ class TransportController extends ControllerBase
      */
     public function createAction()
     {
+        $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "transport",
@@ -112,7 +118,7 @@ class TransportController extends ControllerBase
         $transport->model = $this->request->getPost("model");
         $transport->type = $this->request->getPost("type");
         $transport->entreprise_siren = $this->request->getPost("entreprise_siren");
-        
+
 
         if (!$transport->save()) {
             foreach ($transport->getMessages() as $message) {
@@ -141,6 +147,7 @@ class TransportController extends ControllerBase
      */
     public function saveAction()
     {
+      $this->view->setLayout("private");
 
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
@@ -169,7 +176,7 @@ class TransportController extends ControllerBase
         $transport->model = $this->request->getPost("model");
         $transport->type = $this->request->getPost("type");
         $transport->entreprise_siren = $this->request->getPost("entreprise_siren");
-        
+
 
         if (!$transport->save()) {
 
@@ -201,6 +208,7 @@ class TransportController extends ControllerBase
      */
     public function deleteAction($matricule)
     {
+      $this->view->setLayout("private");
         $transport = Transport::findFirstBymatricule($matricule);
         if (!$transport) {
             $this->flash->error("transport was not found");

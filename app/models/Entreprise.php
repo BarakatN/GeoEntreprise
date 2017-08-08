@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 namespace Vokuro\Models  ; 
+=======
+namespace Vokuro\Models;
+>>>>>>> 690211f5110b172fcbc69799086b8975a190b614
 class Entreprise extends \Phalcon\Mvc\Model
 {
 
@@ -70,7 +74,7 @@ class Entreprise extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", length=45, nullable=false)
      */
     public $Date_creation;
 
@@ -89,7 +93,7 @@ class Entreprise extends \Phalcon\Mvc\Model
         $this->setSchema("vokuro");
         $this->setSource("entreprise");
         $this->hasMany('siren', 'Categorieemploye', 'entreprise_siren', ['alias' => 'Categorieemploye']);
-        $this->hasMany('siren', 'DomaineHasEntreprise1', 'entreprise_siren', ['alias' => 'DomaineHasEntreprise1']);
+        $this->hasMany('siren', 'DomaineHasEntreprise', 'entreprise_siren', ['alias' => 'DomaineHasEntreprise']);
         $this->hasMany('siren', 'Etablissement', 'entreprise_siren', ['alias' => 'Etablissement']);
         $this->hasMany('siren', 'Transport', 'entreprise_siren', ['alias' => 'Transport']);
     }
