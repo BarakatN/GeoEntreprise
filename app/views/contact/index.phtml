@@ -1,0 +1,70 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="page-header">
+    <h1>
+        Search contact
+    </h1>
+    <p>
+        <?php echo $this->tag->linkTo(["contact/new", "Create contact"]) ?>
+    </p>
+</div>
+
+<?php echo $this->getContent() ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "contact/search",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldCin" class="col-sm-2 control-label">Cin</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["cin", "size" => 30, "class" => "form-control", "id" => "fieldCin"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldNom" class="col-sm-2 control-label">Nom</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["nom", "size" => 30, "class" => "form-control", "id" => "fieldNom"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldPrenom" class="col-sm-2 control-label">Prenom</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["prenom", "size" => 30, "class" => "form-control", "id" => "fieldPrenom"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["email", "size" => 30, "class" => "form-control", "id" => "fieldEmail"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldDateAffectation" class="col-sm-2 control-label">Date Of Affectation</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["date_affectation", "size" => 30, "class" => "form-control", "id" => "fieldDateAffectation"]) ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

@@ -49,8 +49,25 @@ $di->set('view', function () {
 
     $view->setViewsDir($config->application->viewsDir);
 
-    $view->registerEngines([
-        '.volt' => function ($view) {
+
+    
+$view->registerEngines(array(
+    '.volt' => function($view, $di) use ($config) {
+
+        $volt = new VoltEngine($view, $di);
+
+        $volt->setOptions(array(
+            'compiledPath' => $config->application->cacheDir .                      
+            'volt/',
+            'compiledSeparator' => '_'
+        ));
+
+        return $volt;
+    },
+    '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
+));
+  /*  $view->registerEngines([
+        '.phtml' => function ($view) {
             $config = $this->getConfig();
 
             $volt = new VoltEngine($view, $this);
@@ -62,7 +79,24 @@ $di->set('view', function () {
 
             return $volt;
         }
-    ]);
+    ]); 
+
+   $view->registerEngines(
+    [
+        '.phtml' => 'voltService',
+    ]
+);
+$view->registerEngines(
+    [
+        '.volt' => Phalcon\Mvc\View\Engine\Volt::class,
+    ]
+);
+
+    */
+
+
+
+
 
     return $view;
 }, true);

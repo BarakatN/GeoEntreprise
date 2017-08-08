@@ -1,0 +1,85 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<?php use Phalcon\Tag; ?>
+
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["entreprise/index", "Go Back"]); ?></li>
+            <li class="next"><?php echo $this->tag->linkTo(["entreprise/new", "Create "]); ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>Search result</h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Siren</th>
+            <th>Denomination</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Code  Of Postal</th>
+            <th>Capital  Of Social</th>
+            <th>Forme Of Juridique</th>
+            <th>Immatriculation</th>
+            <th>Ca</th>
+            <th>Date Of Creation</th>
+            <th>Rayonnement</th>
+            <th>Transport Of Matricule</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($page->items as $entreprise): ?>
+            <tr>
+                <td><?php echo $entreprise->siren ?></td>
+            <td><?php echo $entreprise->denomination ?></td>
+            <td><?php echo $entreprise->ville ?></td>
+            <td><?php echo $entreprise->pays ?></td>
+            <td><?php echo $entreprise->code _postal ?></td>
+            <td><?php echo $entreprise->capital _social ?></td>
+            <td><?php echo $entreprise->forme_juridique ?></td>
+            <td><?php echo $entreprise->immatriculation ?></td>
+            <td><?php echo $entreprise->ca ?></td>
+            <td><?php echo $entreprise->date_creation ?></td>
+            <td><?php echo $entreprise->rayonnement ?></td>
+            <td><?php echo $entreprise->transport_matricule ?></td>
+
+                <td><?php echo $this->tag->linkTo(["entreprise/edit/" . $entreprise->siren, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["entreprise/delete/" . $entreprise->siren, "Delete"]); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-1">
+        <p class="pagination" style="line-height: 1.42857;padding: 6px 12px;">
+            <?php echo $page->current, "/", $page->total_pages ?>
+        </p>
+    </div>
+    <div class="col-sm-11">
+        <nav>
+            <ul class="pagination">
+                <li><?php echo $this->tag->linkTo("entreprise/search", "First") ?></li>
+                <li><?php echo $this->tag->linkTo("entreprise/search?page=" . $page->before, "Previous") ?></li>
+                <li><?php echo $this->tag->linkTo("entreprise/search?page=" . $page->next, "Next") ?></li>
+                <li><?php echo $this->tag->linkTo("entreprise/search?page=" . $page->last, "Last") ?></li>
+            </ul>
+        </nav>
+    </div>
+</div>

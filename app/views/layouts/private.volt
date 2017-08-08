@@ -5,8 +5,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
+        
       </a>
-      {{ link_to(null, 'class': 'brand', 'Vökuró')}}
+      {{ link_to(null, 'class': 'brand', 'GeoEntreprise')}}
         <div class="nav-collapse">
 
           <ul class="nav">
@@ -15,7 +16,11 @@
               'Home': null,
               'Users': 'users',
               'Profiles': 'profiles',
-              'Permissions': 'permissions'
+              'Permissions': 'permissions',
+              'Gestion de Contact': 'contact'
+
+
+
             ] -%}
 
             {%- for key, value in menus %}
