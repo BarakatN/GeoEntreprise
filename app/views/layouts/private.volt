@@ -18,11 +18,18 @@
               'Profiles': 'profiles',
               'Permissions': 'permissions',
               'Entreprise':'entreprise',
-               'Contact': 'contact',
-              'Transport':'transport',
-              'Etablissement':'etablissement',
               'Departement':'departement',
-              'Domaine':'domaine'
+              'Domaine':'domaine',
+              'Etablissement':'etablissement',
+               'Contact': 'contact',
+
+              'Transport':'transport'
+
+
+
+
+
+
 
 
 
