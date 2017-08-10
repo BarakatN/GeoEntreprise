@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
+namespace Vokuro\Models  ; 
+=======
 namespace Vokuro\Models;
+>>>>>>> 690211f5110b172fcbc69799086b8975a190b614
 class Entreprise extends \Phalcon\Mvc\Model
 {
 
