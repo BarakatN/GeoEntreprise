@@ -20,7 +20,9 @@
               'Entreprise':'entreprise',
                'Contact': 'contact',
               'Transport':'transport',
-              'Etablissement':'etablissement'
+              'Etablissement':'etablissement',
+              'Departement':'departement',
+              'Domaine':'domaine'
 
 
 

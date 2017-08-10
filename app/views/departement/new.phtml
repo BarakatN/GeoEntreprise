@@ -1,0 +1,78 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php use Vokuro\Models\Etablissement;
+      use Vokuro\Models\Contact;
+?>
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["departement", "Go Back"]) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>
+        Create departement
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "departement/create",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldNumDept" class="col-sm-2 control-label">Num Of Dept</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["num_dept", "type" => "number", "class" => "form-control", "id" => "fieldNumDept"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldLibelle" class="col-sm-2 control-label">Libelle</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["libelle", "size" => 30, "class" => "form-control", "id" => "fieldLibelle"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEtablissementId" class="col-sm-2 control-label">Etablissement</label>
+    <div class="col-sm-10">
+      <?php
+        $etablissements=Etablissement::find();
+
+        echo $this->tag->select(['entreprise_id',$etablissements,'using'=>['id','siret']]);
+       ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldContactId" class="col-sm-2 control-label">Contact</label>
+    <div class="col-sm-10">
+      <?php
+        $contacts=Contact::find();
+
+        echo $this->tag->select(['entreprise_id',$contacts,'using'=>['id','nom']]);
+       ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>
