@@ -1,0 +1,72 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php use Vokuro\Models\Entreprise ;?>
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["transport", "Go Back"]) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>
+        Create transport
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "transport/create",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldMatricule" class="col-sm-2 control-label">Matricule</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["matricule", "size" => 30, "class" => "form-control", "id" => "fieldMatricule"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldModele" class="col-sm-2 control-label">Modele</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["modele", "size" => 30, "class" => "form-control", "id" => "fieldModele"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldType" class="col-sm-2 control-label">Type</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["type", "size" => 30, "class" => "form-control", "id" => "fieldType"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEntrepriseId" class="col-sm-2 control-label">Entreprise</label>
+    <div class="col-sm-10">
+      <?php
+        $entreprises=Entreprise::find();
+
+        echo $this->tag->select(['entreprise_id',$entreprises,'using'=>['id','nom']]);
+       ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

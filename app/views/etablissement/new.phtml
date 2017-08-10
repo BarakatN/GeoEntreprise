@@ -1,0 +1,74 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php use Vokuro\Models\Entreprise;
+
+?>
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["etablissement", "Go Back"]) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>
+        Create etablissement
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "etablissement/create",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldSiret" class="col-sm-2 control-label">Siret</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["siret", "type" => "number", "class" => "form-control", "id" => "fieldSiret"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldLongitude" class="col-sm-2 control-label">Longitude</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["longitude", "size" => 30, "class" => "form-control", "id" => "fieldLongitude"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldAltitude" class="col-sm-2 control-label">Altitude</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["altitude", "size" => 30, "class" => "form-control", "id" => "fieldAltitude"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEntrepriseId" class="col-sm-2 control-label">Entreprise</label>
+    <div class="col-sm-10">
+      <?php
+        $entreprises=Entreprise::find();
+
+        echo $this->tag->select(['entreprise_id',$entreprises,'using'=>['id','nom']]);
+       ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

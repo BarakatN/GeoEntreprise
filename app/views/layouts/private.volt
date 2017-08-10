@@ -17,9 +17,16 @@
               'Users': 'users',
               'Profiles': 'profiles',
               'Permissions': 'permissions',
+              'Entreprise':'entreprise',
               'Departement':'departement',
-              'Domaine':'domaine'
+              'Domaine':'domaine',
+              'Etablissement':'etablissement',
+               'Contact': 'contact',
+              'Transport':'transport'
               
+
+              
+
 
 
 
