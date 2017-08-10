@@ -52,7 +52,7 @@
       <?php
         $etablissements=Etablissement::find();
 
-        echo $this->tag->select(['entreprise_id',$etablissements,'using'=>['id','siret']]);
+        echo $this->tag->select(['etablissement_id',$etablissements,'using'=>['id','siret']]);
        ?>
     </div>
 </div>
@@ -63,7 +63,7 @@
       <?php
         $contacts=Contact::find();
 
-        echo $this->tag->select(['entreprise_id',$contacts,'using'=>['id','nom']]);
+        echo $this->tag->select(['contact_id',$contacts,'using'=>['id','nom']]);
        ?>
     </div>
 </div>
