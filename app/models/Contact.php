@@ -1,6 +1,5 @@
 <?php
 namespace Vokuro\Models;
-
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
@@ -9,8 +8,16 @@ class Contact extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      * @Primary
+     * @Identity
+     * @Column(type="integer", length=11, nullable=false)
+     */
+    public $Id;
+
+    /**
+     *
+     * @var string
      * @Column(type="string", length=45, nullable=false)
      */
     public $Cin;
@@ -39,7 +46,7 @@ class Contact extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=45, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $Date_affectation;
 
@@ -48,14 +55,22 @@ class Contact extends \Phalcon\Mvc\Model
      *
      * @return boolean
      */
-    public function validation()
-    {
-        $validator = new Validation();
-
-     
-
-        return $this->validate($validator);
-    }
+    // public function validation()
+    // {
+    //     $validator = new Validation();
+    //
+    //     $validator->add(
+    //         'Email',
+    //         new EmailValidator(
+    //             [
+    //                 'model'   => $this,
+    //                 'message' => 'Please enter a correct email address',
+    //             ]
+    //         )
+    //     );
+    //
+    //     return $this->validate($validator);
+    // }
 
     /**
      * Initialize method for model.
@@ -64,7 +79,7 @@ class Contact extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("contact");
-        $this->hasMany('cin', 'Departement', 'contact_cin', ['alias' => 'Departement']);
+        $this->hasMany('id', 'Departement', 'contact_id', ['alias' => 'Departement']);
     }
 
     /**

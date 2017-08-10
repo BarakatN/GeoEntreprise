@@ -26,6 +26,13 @@
 ?>
 
 <div class="form-group">
+    <label for="fieldId" class="col-sm-2 control-label">Id</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["id", "type" => "number", "class" => "form-control", "id" => "fieldId"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
     <label for="fieldCin" class="col-sm-2 control-label">Cin</label>
     <div class="col-sm-10">
         <?php echo $this->tag->textField(["cin", "size" => 30, "class" => "form-control", "id" => "fieldCin"]) ?>
@@ -56,14 +63,14 @@
 <div class="form-group">
     <label for="fieldDateAffectation" class="col-sm-2 control-label">Date Of Affectation</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["date_affectation", "size" => 30, "class" => "form-control", "id" => "fieldDateAffectation"]) ?>
+        <?php echo $this->tag->textField(["date_affectation", "type" => "date", "class" => "form-control", "id" => "fieldDateAffectation"]) ?>
     </div>
 </div>
 
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-    <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
+        <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
     </div>
 </div>
 

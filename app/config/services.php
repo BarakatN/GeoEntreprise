@@ -19,12 +19,12 @@ use Vokuro\Mail\Mail;
  */
 $di->setShared('config', function () {
     $config = include APP_PATH . '/config/config.php';
-    
+
     if (is_readable(APP_PATH . '/config/config.dev.php')) {
         $override = include APP_PATH . '/config/config.dev.php';
         $config->merge($override);
     }
-    
+
     return $config;
 });
 
@@ -50,14 +50,14 @@ $di->set('view', function () {
     $view->setViewsDir($config->application->viewsDir);
 
 
-    
+
 $view->registerEngines(array(
     '.volt' => function($view, $di) use ($config) {
 
         $volt = new VoltEngine($view, $di);
 
         $volt->setOptions(array(
-            'compiledPath' => $config->application->cacheDir .                      
+            'compiledPath' => $config->application->cacheDir .
             'volt/',
             'compiledSeparator' => '_'
         ));
@@ -79,7 +79,7 @@ $view->registerEngines(array(
 
             return $volt;
         }
-    ]); 
+    ]);
 
    $view->registerEngines(
     [
@@ -187,7 +187,7 @@ $di->set('mail', function () {
 });
 
 /**
- * Setup the private resources, if any, for performance optimization of the ACL.  
+ * Setup the private resources, if any, for performance optimization of the ACL.
  */
 $di->setShared('AclResources', function() {
     $pr = [];

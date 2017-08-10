@@ -26,6 +26,20 @@
 ?>
 
 <div class="form-group">
+    <label for="fieldId" class="col-sm-2 control-label">Id</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["id", "type" => "number", "class" => "form-control", "id" => "fieldId"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldNom" class="col-sm-2 control-label">Nom</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["nom", "size" => 30, "class" => "form-control", "id" => "fieldNom"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
     <label for="fieldSiren" class="col-sm-2 control-label">Siren</label>
     <div class="col-sm-10">
         <?php echo $this->tag->textField(["siren", "type" => "number", "class" => "form-control", "id" => "fieldSiren"]) ?>
@@ -82,16 +96,16 @@
 </div>
 
 <div class="form-group">
-    <label for="fieldCa" class="col-sm-2 control-label">Ca</label>
+    <label for="fieldCa" class="col-sm-2 control-label">CA</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["ca", "size" => 30, "class" => "form-control", "id" => "fieldCa"]) ?>
+        <?php echo $this->tag->textField(["CA", "size" => 30, "class" => "form-control", "id" => "fieldCa"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldDateCreation" class="col-sm-2 control-label">Date Of Creation</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["date_creation", "size" => 30, "class" => "form-control", "id" => "fieldDateCreation"]) ?>
+        <?php echo $this->tag->textField(["date_creation", "type" => "date", "class" => "form-control", "id" => "fieldDateCreation"]) ?>
     </div>
 </div>
 

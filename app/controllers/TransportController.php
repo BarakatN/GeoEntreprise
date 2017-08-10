@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Controllers ;
+namespace Vokuro\Controllers;
 
 use Vokuro\Models\Transport;
 use Phalcon\Mvc\Model\Criteria;
@@ -11,10 +11,14 @@ class TransportController extends ControllerBase
     /**
      * Index action
      */
+     public function initialize()
+     {
+         $this->view->setlayout('private');
+     }
     public function indexAction()
     {
         $this->persistent->parameters = null;
-        $this->view->setLayout("private");
+
     }
 
     /**
@@ -22,7 +26,7 @@ class TransportController extends ControllerBase
      */
     public function searchAction()
     {
-      $this->view->setLayout("private");
+
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, 'Vokuro\Models\Transport', $_POST);
@@ -35,7 +39,7 @@ class TransportController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "matricule";
+        $parameters["order"] = "id";
 
         $transport = Transport::find($parameters);
         if (count($transport) == 0) {
@@ -63,20 +67,20 @@ class TransportController extends ControllerBase
      */
     public function newAction()
     {
-      $this->view->setLayout("private");
+
     }
 
     /**
      * Edits a transport
      *
-     * @param string $matricule
+     * @param string $id
      */
-    public function editAction($matricule)
+    public function editAction($id)
     {
-      $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
 
-            $transport = Transport::findFirstBymatricule($matricule);
+            $transport = Transport::findFirstByid($id);
             if (!$transport) {
                 $this->flash->error("transport was not found");
 
@@ -88,12 +92,13 @@ class TransportController extends ControllerBase
                 return;
             }
 
-            $this->view->matricule = $transport->matricule;
+            $this->view->id = $transport->id;
 
+            $this->tag->setDefault("id", $transport->id);
             $this->tag->setDefault("matricule", $transport->matricule);
-            $this->tag->setDefault("model", $transport->model);
+            $this->tag->setDefault("modele", $transport->modele);
             $this->tag->setDefault("type", $transport->type);
-            $this->tag->setDefault("entreprise_siren", $transport->entreprise_siren);
+            $this->tag->setDefault("entreprise_id", $transport->entreprise_id);
 
         }
     }
@@ -103,7 +108,7 @@ class TransportController extends ControllerBase
      */
     public function createAction()
     {
-        $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "transport",
@@ -115,9 +120,9 @@ class TransportController extends ControllerBase
 
         $transport = new Transport();
         $transport->matricule = $this->request->getPost("matricule");
-        $transport->model = $this->request->getPost("model");
+        $transport->modele = $this->request->getPost("modele");
         $transport->type = $this->request->getPost("type");
-        $transport->entreprise_siren = $this->request->getPost("entreprise_siren");
+        $transport->entreprise_id = $this->request->getPost("entreprise_id");
 
 
         if (!$transport->save()) {
@@ -147,7 +152,6 @@ class TransportController extends ControllerBase
      */
     public function saveAction()
     {
-      $this->view->setLayout("private");
 
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
@@ -158,11 +162,11 @@ class TransportController extends ControllerBase
             return;
         }
 
-        $matricule = $this->request->getPost("matricule");
-        $transport = Transport::findFirstBymatricule($matricule);
+        $id = $this->request->getPost("id");
+        $transport = Transport::findFirstByid($id);
 
         if (!$transport) {
-            $this->flash->error("transport does not exist " . $matricule);
+            $this->flash->error("transport does not exist " . $id);
 
             $this->dispatcher->forward([
                 'controller' => "transport",
@@ -173,9 +177,9 @@ class TransportController extends ControllerBase
         }
 
         $transport->matricule = $this->request->getPost("matricule");
-        $transport->model = $this->request->getPost("model");
+        $transport->modele = $this->request->getPost("modele");
         $transport->type = $this->request->getPost("type");
-        $transport->entreprise_siren = $this->request->getPost("entreprise_siren");
+        $transport->entreprise_id = $this->request->getPost("entreprise_id");
 
 
         if (!$transport->save()) {
@@ -187,7 +191,7 @@ class TransportController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "transport",
                 'action' => 'edit',
-                'params' => [$transport->matricule]
+                'params' => [$transport->id]
             ]);
 
             return;
@@ -204,12 +208,12 @@ class TransportController extends ControllerBase
     /**
      * Deletes a transport
      *
-     * @param string $matricule
+     * @param string $id
      */
-    public function deleteAction($matricule)
+    public function deleteAction($id)
     {
-      $this->view->setLayout("private");
-        $transport = Transport::findFirstBymatricule($matricule);
+      
+        $transport = Transport::findFirstByid($id);
         if (!$transport) {
             $this->flash->error("transport was not found");
 

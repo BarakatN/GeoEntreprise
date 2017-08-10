@@ -1,9 +1,9 @@
 <?php
+namespace Vokuro\Controllers;
 
- namespace Vokuro\Controllers ; 
+use Vokuro\Models\Contact;
 
 use Phalcon\Mvc\Model\Criteria;
-use Vokuro\Models\Contact;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
 
@@ -12,10 +12,14 @@ class ContactController extends ControllerBase
     /**
      * Index action
      */
+     public function initialize()
+     {
+         $this->view->setlayout('private');
+     }
     public function indexAction()
     {
         $this->persistent->parameters = null;
-        $this->view->setLayout("private");
+
     }
 
     /**
@@ -23,7 +27,7 @@ class ContactController extends ControllerBase
      */
     public function searchAction()
     {
-        $this->view->setLayout("private");
+
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, 'Vokuro\Models\Contact', $_POST);
@@ -36,7 +40,7 @@ class ContactController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "cin";
+        $parameters["order"] = "id";
 
         $contact = Contact::find($parameters);
         if (count($contact) == 0) {
@@ -64,20 +68,20 @@ class ContactController extends ControllerBase
      */
     public function newAction()
     {
-$this->view->setLayout("private");
+
     }
 
     /**
      * Edits a contact
      *
-     * @param string $cin
+     * @param string $id
      */
-    public function editAction($cin)
+    public function editAction($id)
     {
-        $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
 
-            $contact = Contact::findFirstBycin($cin);
+            $contact = Contact::findFirstByid($id);
             if (!$contact) {
                 $this->flash->error("contact was not found");
 
@@ -89,14 +93,15 @@ $this->view->setLayout("private");
                 return;
             }
 
-            $this->view->cin = $contact->cin;
+            $this->view->id = $contact->id;
 
+            $this->tag->setDefault("id", $contact->id);
             $this->tag->setDefault("cin", $contact->cin);
             $this->tag->setDefault("nom", $contact->nom);
             $this->tag->setDefault("prenom", $contact->prenom);
             $this->tag->setDefault("email", $contact->email);
             $this->tag->setDefault("date_affectation", $contact->date_affectation);
-            
+
         }
     }
 
@@ -105,7 +110,7 @@ $this->view->setLayout("private");
      */
     public function createAction()
     {
-        $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "contact",
@@ -121,7 +126,7 @@ $this->view->setLayout("private");
         $contact->prenom = $this->request->getPost("prenom");
         $contact->email = $this->request->getPost("email", "email");
         $contact->date_affectation = $this->request->getPost("date_affectation");
-        
+
 
         if (!$contact->save()) {
             foreach ($contact->getMessages() as $message) {
@@ -150,7 +155,7 @@ $this->view->setLayout("private");
      */
     public function saveAction()
     {
-$this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "contact",
@@ -160,11 +165,11 @@ $this->view->setLayout("private");
             return;
         }
 
-        $cin = $this->request->getPost("cin");
-        $contact = Contact::findFirstBycin($cin);
+        $id = $this->request->getPost("id");
+        $contact = Contact::findFirstByid($id);
 
         if (!$contact) {
-            $this->flash->error("contact does not exist " . $cin);
+            $this->flash->error("contact does not exist " . $id);
 
             $this->dispatcher->forward([
                 'controller' => "contact",
@@ -179,7 +184,7 @@ $this->view->setLayout("private");
         $contact->prenom = $this->request->getPost("prenom");
         $contact->email = $this->request->getPost("email", "email");
         $contact->date_affectation = $this->request->getPost("date_affectation");
-        
+
 
         if (!$contact->save()) {
 
@@ -190,7 +195,7 @@ $this->view->setLayout("private");
             $this->dispatcher->forward([
                 'controller' => "contact",
                 'action' => 'edit',
-                'params' => [$contact->cin]
+                'params' => [$contact->id]
             ]);
 
             return;
@@ -207,11 +212,12 @@ $this->view->setLayout("private");
     /**
      * Deletes a contact
      *
-     * @param string $cin
+     * @param string $id
      */
-    public function deleteAction($cin)
-    { $this->view->setLayout("private");
-        $contact = Contact::findFirstBycin($cin);
+    public function deleteAction($id)
+    {
+      
+        $contact = Contact::findFirstByid($id);
         if (!$contact) {
             $this->flash->error("contact was not found");
 

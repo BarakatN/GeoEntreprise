@@ -3,7 +3,9 @@
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
 ?>
+<?php use Vokuro\Models\Entreprise;
 
+?>
 <div class="page-header">
     <h1>
         Search etablissement
@@ -26,16 +28,16 @@
 ?>
 
 <div class="form-group">
-    <label for="fieldSiret" class="col-sm-2 control-label">Siret</label>
+    <label for="fieldId" class="col-sm-2 control-label">Id</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["siret", "type" => "number", "class" => "form-control", "id" => "fieldSiret"]) ?>
+        <?php echo $this->tag->textField(["id", "type" => "number", "class" => "form-control", "id" => "fieldId"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldLantitude" class="col-sm-2 control-label">Lantitude</label>
+    <label for="fieldSiret" class="col-sm-2 control-label">Siret</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["lantitude", "size" => 30, "class" => "form-control", "id" => "fieldLantitude"]) ?>
+        <?php echo $this->tag->textField(["siret", "type" => "number", "class" => "form-control", "id" => "fieldSiret"]) ?>
     </div>
 </div>
 
@@ -47,9 +49,20 @@
 </div>
 
 <div class="form-group">
-    <label for="fieldEntrepriseSiren" class="col-sm-2 control-label">Entreprise Of Siren</label>
+    <label for="fieldAltitude" class="col-sm-2 control-label">Altitude</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["entreprise_siren", "type" => "number", "class" => "form-control", "id" => "fieldEntrepriseSiren"]) ?>
+        <?php echo $this->tag->textField(["altitude", "size" => 30, "class" => "form-control", "id" => "fieldAltitude"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEntrepriseId" class="col-sm-2 control-label">Entreprise</label>
+    <div class="col-sm-10">
+      <?php
+        $entreprises=Entreprise::find();
+
+        echo $this->tag->select(['entreprise_id',$entreprises,'using'=>['id','nom']]);
+       ?>
     </div>
 </div>
 

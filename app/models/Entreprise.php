@@ -7,6 +7,21 @@ class Entreprise extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
+     * @Identity
+     * @Column(type="integer", length=11, nullable=false)
+     */
+    public $Id;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=45, nullable=true)
+     */
+    public $Nom;
+
+    /**
+     *
+     * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
     public $Siren;
@@ -35,7 +50,7 @@ class Entreprise extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=45, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $Code_postal;
 
@@ -70,7 +85,7 @@ class Entreprise extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=45, nullable=false)
+     * @Column(type="string", nullable=false)
      */
     public $Date_creation;
 
@@ -88,10 +103,10 @@ class Entreprise extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("entreprise");
-        $this->hasMany('siren', 'Categorieemploye', 'entreprise_siren', ['alias' => 'Categorieemploye']);
-        $this->hasMany('siren', 'DomaineHasEntreprise', 'entreprise_siren', ['alias' => 'DomaineHasEntreprise']);
-        $this->hasMany('siren', 'Etablissement', 'entreprise_siren', ['alias' => 'Etablissement']);
-        $this->hasMany('siren', 'Transport', 'entreprise_siren', ['alias' => 'Transport']);
+        $this->hasMany('id', 'Categorieemploye', 'entreprise_id', ['alias' => 'Categorieemploye']);
+        $this->hasMany('id', 'DomaineHasEntreprise', 'entreprise_id', ['alias' => 'DomaineHasEntreprise']);
+        $this->hasMany('id', 'Etablissement', 'entreprise_id', ['alias' => 'Etablissement']);
+        $this->hasMany('id', 'Transport', 'entreprise_id', ['alias' => 'Transport']);
     }
 
     /**

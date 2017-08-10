@@ -5,9 +5,17 @@ class Transport extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      * @Primary
-     * @Column(type="string", length=45, nullable=false)
+     * @Identity
+     * @Column(type="integer", length=11, nullable=false)
+     */
+    public $Id;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", length=11, nullable=false)
      */
     public $Matricule;
 
@@ -16,7 +24,7 @@ class Transport extends \Phalcon\Mvc\Model
      * @var string
      * @Column(type="string", length=45, nullable=false)
      */
-    public $Model;
+    public $Modele;
 
     /**
      *
@@ -30,7 +38,7 @@ class Transport extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Entreprise_siren;
+    public $Entreprise_id;
 
     /**
      * Initialize method for model.
@@ -39,7 +47,7 @@ class Transport extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("transport");
-        $this->belongsTo('entreprise_siren', '\Entreprise', 'siren', ['alias' => 'Entreprise']);
+        $this->belongsTo('entreprise_id', '\Entreprise', 'id', ['alias' => 'Entreprise']);
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Controllers ;
+namespace Vokuro\Controllers;
 
 use Vokuro\Models\Entreprise;
 use Phalcon\Mvc\Model\Criteria;
@@ -11,10 +11,14 @@ class EntrepriseController extends ControllerBase
     /**
      * Index action
      */
+     public function initialize()
+     {
+         $this->view->setlayout('private');
+     }
     public function indexAction()
     {
         $this->persistent->parameters = null;
-        $this->view->setLayout("private");
+
     }
 
     /**
@@ -22,7 +26,7 @@ class EntrepriseController extends ControllerBase
      */
     public function searchAction()
     {
-        $this->view->setLayout("private");
+
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, 'Vokuro\Models\Entreprise', $_POST);
@@ -35,7 +39,7 @@ class EntrepriseController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "siren";
+        $parameters["order"] = "id";
 
         $entreprise = Entreprise::find($parameters);
         if (count($entreprise) == 0) {
@@ -63,20 +67,20 @@ class EntrepriseController extends ControllerBase
      */
     public function newAction()
     {
-      $this->view->setLayout("private");
+
     }
 
     /**
      * Edits a entreprise
      *
-     * @param string $siren
+     * @param string $id
      */
-    public function editAction($siren)
+    public function editAction($id)
     {
-      $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
 
-            $entreprise = Entreprise::findFirstBysiren($siren);
+            $entreprise = Entreprise::findFirstByid($id);
             if (!$entreprise) {
                 $this->flash->error("entreprise was not found");
 
@@ -88,8 +92,10 @@ class EntrepriseController extends ControllerBase
                 return;
             }
 
-            $this->view->siren = $entreprise->siren;
+            $this->view->id = $entreprise->id;
 
+            $this->tag->setDefault("id", $entreprise->id);
+            $this->tag->setDefault("nom", $entreprise->nom);
             $this->tag->setDefault("siren", $entreprise->siren);
             $this->tag->setDefault("denomination", $entreprise->denomination);
             $this->tag->setDefault("ville", $entreprise->ville);
@@ -98,7 +104,7 @@ class EntrepriseController extends ControllerBase
             $this->tag->setDefault("capital_social", $entreprise->capital_social);
             $this->tag->setDefault("forme_juridique", $entreprise->forme_juridique);
             $this->tag->setDefault("immatriculation", $entreprise->immatriculation);
-            $this->tag->setDefault("ca", $entreprise->ca);
+            $this->tag->setDefault("CA", $entreprise->CA);
             $this->tag->setDefault("date_creation", $entreprise->date_creation);
             $this->tag->setDefault("rayonnement", $entreprise->rayonnement);
 
@@ -110,7 +116,7 @@ class EntrepriseController extends ControllerBase
      */
     public function createAction()
     {
-      $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "entreprise",
@@ -121,6 +127,7 @@ class EntrepriseController extends ControllerBase
         }
 
         $entreprise = new Entreprise();
+        $entreprise->nom = $this->request->getPost("nom");
         $entreprise->siren = $this->request->getPost("siren");
         $entreprise->denomination = $this->request->getPost("denomination");
         $entreprise->ville = $this->request->getPost("ville");
@@ -129,7 +136,7 @@ class EntrepriseController extends ControllerBase
         $entreprise->capital_social = $this->request->getPost("capital_social");
         $entreprise->forme_juridique = $this->request->getPost("forme_juridique");
         $entreprise->immatriculation = $this->request->getPost("immatriculation");
-        $entreprise->ca = $this->request->getPost("ca");
+        $entreprise->CA = $this->request->getPost("CA");
         $entreprise->date_creation = $this->request->getPost("date_creation");
         $entreprise->rayonnement = $this->request->getPost("rayonnement");
 
@@ -161,7 +168,7 @@ class EntrepriseController extends ControllerBase
      */
     public function saveAction()
     {
-      $this->view->setLayout("private");
+
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "entreprise",
@@ -171,11 +178,11 @@ class EntrepriseController extends ControllerBase
             return;
         }
 
-        $siren = $this->request->getPost("siren");
-        $entreprise = Entreprise::findFirstBysiren($siren);
+        $id = $this->request->getPost("id");
+        $entreprise = Entreprise::findFirstByid($id);
 
         if (!$entreprise) {
-            $this->flash->error("entreprise does not exist " . $siren);
+            $this->flash->error("entreprise does not exist " . $id);
 
             $this->dispatcher->forward([
                 'controller' => "entreprise",
@@ -185,6 +192,7 @@ class EntrepriseController extends ControllerBase
             return;
         }
 
+        $entreprise->nom = $this->request->getPost("nom");
         $entreprise->siren = $this->request->getPost("siren");
         $entreprise->denomination = $this->request->getPost("denomination");
         $entreprise->ville = $this->request->getPost("ville");
@@ -193,7 +201,7 @@ class EntrepriseController extends ControllerBase
         $entreprise->capital_social = $this->request->getPost("capital_social");
         $entreprise->forme_juridique = $this->request->getPost("forme_juridique");
         $entreprise->immatriculation = $this->request->getPost("immatriculation");
-        $entreprise->ca = $this->request->getPost("ca");
+        $entreprise->CA = $this->request->getPost("CA");
         $entreprise->date_creation = $this->request->getPost("date_creation");
         $entreprise->rayonnement = $this->request->getPost("rayonnement");
 
@@ -207,7 +215,7 @@ class EntrepriseController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "entreprise",
                 'action' => 'edit',
-                'params' => [$entreprise->siren]
+                'params' => [$entreprise->id]
             ]);
 
             return;
@@ -224,12 +232,12 @@ class EntrepriseController extends ControllerBase
     /**
      * Deletes a entreprise
      *
-     * @param string $siren
+     * @param string $id
      */
-    public function deleteAction($siren)
+    public function deleteAction($id)
     {
-      $this->view->setLayout("private");
-        $entreprise = Entreprise::findFirstBysiren($siren);
+      
+        $entreprise = Entreprise::findFirstByid($id);
         if (!$entreprise) {
             $this->flash->error("entreprise was not found");
 

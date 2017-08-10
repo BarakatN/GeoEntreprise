@@ -7,30 +7,38 @@ class Etablissement extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
+     * @Identity
      * @Column(type="integer", length=11, nullable=false)
+     */
+    public $Id;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=11, nullable=true)
      */
     public $Siret;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $Lantitude;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
+     * @Column(type="string", nullable=true)
      */
     public $Longitude;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=11, nullable=false)
+     * @var string
+     * @Column(type="string", nullable=true)
      */
-    public $Entreprise_siren;
+    public $Altitude;
+
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=11, nullable=true)
+     */
+    public $Entreprise_id;
 
     /**
      * Initialize method for model.
@@ -39,8 +47,8 @@ class Etablissement extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("etablissement");
-        $this->hasMany('siret', 'Departement', 'etablissement_siret', ['alias' => 'Departement']);
-        $this->belongsTo('entreprise_siren', '\Entreprise', 'siren', ['alias' => 'Entreprise']);
+        $this->hasMany('id', 'Departement', 'etablissement_id', ['alias' => 'Departement']);
+        $this->belongsTo('entreprise_id', '\Entreprise', 'id', ['alias' => 'Entreprise']);
     }
 
     /**
