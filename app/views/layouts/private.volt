@@ -17,22 +17,11 @@
               'Users': 'users',
               'Profiles': 'profiles',
               'Permissions': 'permissions',
-<<<<<<< HEAD
               'Entreprise':'entreprise',
-=======
-              'Entreprises': 'entreprise'
-              'Employés': 'categorieemploye',
->>>>>>> 585bdd5219e4dbefe487fbaaccec5160a2011ea1
-              'Contact': 'contact',
+               'Contact': 'contact',
               'Transport':'transport',
-              'Departement':'departement',
-              'Etablissement':'etablissement',
-              'Domaine':'domaine'
-<<<<<<< HEAD
+              'Etablissement':'etablissement'
 
-=======
-              
->>>>>>> 585bdd5219e4dbefe487fbaaccec5160a2011ea1
 
 
 
