@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Domaine;
+namespace Vokuro\Models ; 
 class Domaine extends \Phalcon\Mvc\Model
 {
 
@@ -7,6 +7,7 @@ class Domaine extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
+     * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
     public $Id;
@@ -32,7 +33,7 @@ class Domaine extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("domaine");
-        $this->hasMany('id', 'DomaineHasEntreprise1', 'domaine_id', ['alias' => 'DomaineHasEntreprise1']);
+        $this->hasMany('id', 'DomaineHasEntreprise', 'domaine_id', ['alias' => 'DomaineHasEntreprise']);
     }
 
     /**

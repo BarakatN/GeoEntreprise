@@ -17,12 +17,7 @@
               'Users': 'users',
               'Profiles': 'profiles',
               'Permissions': 'permissions',
-              'Entreprises': 'entreprise'
-              'Employés': 'categorieemploye',
-              'Contact': 'contact',
-              'Transport':'transport',
               'Departement':'departement',
-              'Etablissement':'etablissement',
               'Domaine':'domaine'
               
 

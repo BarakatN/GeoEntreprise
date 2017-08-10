@@ -1,5 +1,6 @@
 <?php
-namespace Vokuro\Models;
+
+namespace Vokuro\Models ; 
 class Departement extends \Phalcon\Mvc\Model
 {
 
@@ -7,6 +8,14 @@ class Departement extends \Phalcon\Mvc\Model
      *
      * @var integer
      * @Primary
+     * @Identity
+     * @Column(type="integer", length=11, nullable=false)
+     */
+    public $Id;
+
+    /**
+     *
+     * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
     public $Num_dept;
@@ -23,14 +32,14 @@ class Departement extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Etablissement_siret;
+    public $Etablissement_id;
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=45, nullable=false)
+     * @var integer
+     * @Column(type="integer", length=11, nullable=false)
      */
-    public $Contact_cin;
+    public $Contact_id;
 
     /**
      * Initialize method for model.
@@ -39,8 +48,8 @@ class Departement extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("departement");
-        $this->belongsTo('etablissement_siret', '\Etablissement', 'siret', ['alias' => 'Etablissement']);
-        $this->belongsTo('contact_cin', '\Contact', 'cin', ['alias' => 'Contact']);
+        $this->belongsTo('contact_id', '\Contact', 'id', ['alias' => 'Contact']);
+        $this->belongsTo('etablissement_id', '\Etablissement', 'id', ['alias' => 'Etablissement']);
     }
 
     /**

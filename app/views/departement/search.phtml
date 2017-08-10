@@ -25,10 +25,11 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Num Of Dept</th>
+                <th>Id</th>
+            <th>Num Of Dept</th>
             <th>Libelle</th>
-            <th>Etablissement Of Siret</th>
-            <th>Contact Of Cin</th>
+            <th>Etablissement</th>
+            <th>Contact</th>
 
                 <th></th>
                 <th></th>
@@ -37,13 +38,14 @@
         <tbody>
         <?php foreach ($page->items as $departement): ?>
             <tr>
-                <td><?php echo $departement->num_dept ?></td>
+                <td><?php echo $departement->id ?></td>
+            <td><?php echo $departement->num_dept ?></td>
             <td><?php echo $departement->libelle ?></td>
-            <td><?php echo $departement->etablissement_siret ?></td>
-            <td><?php echo $departement->contact_cin ?></td>
+            <td><?php echo $departement->etablissement_id ?></td>
+            <td><?php echo $departement->contact_id ?></td>
 
-                <td><?php echo $this->tag->linkTo(["departement/edit/" . $departement->num_dept, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["departement/delete/" . $departement->num_dept, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["departement/edit/" . $departement->id, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["departement/delete/" . $departement->id, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

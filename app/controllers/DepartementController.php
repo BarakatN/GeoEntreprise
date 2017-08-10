@@ -1,7 +1,6 @@
 <?php
-namespace Vokuro\Controllers ;
-
-use Vokuro\Models\Departement;
+ namespace Vokuro\Controllers ; 
+ use Vokuro\Models\departement; 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -11,10 +10,15 @@ class DepartementController extends ControllerBase
     /**
      * Index action
      */
+     public function initialize()
+    {
+        $this->view->setLayout('private') ; 
+    }
+
     public function indexAction()
     {
         $this->persistent->parameters = null;
-        $this->view->setLayout("private");
+
     }
 
     /**
@@ -22,10 +26,9 @@ class DepartementController extends ControllerBase
      */
     public function searchAction()
     {
-        $this->view->setLayout("private");
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Departement', $_POST);
+            $query = Criteria::fromInput($this->di, 'Vokuro\Models\departement', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -35,7 +38,7 @@ class DepartementController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "num_dept";
+        $parameters["order"] = "id";
 
         $departement = Departement::find($parameters);
         if (count($departement) == 0) {
@@ -63,20 +66,19 @@ class DepartementController extends ControllerBase
      */
     public function newAction()
     {
-      $this->view->setLayout("private");
+
     }
 
     /**
      * Edits a departement
      *
-     * @param string $num_dept
+     * @param string $id
      */
-    public function editAction($num_dept)
+    public function editAction($id)
     {
-      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
 
-            $departement = Departement::findFirstBynum_dept($num_dept);
+            $departement = Departement::findFirstByid($id);
             if (!$departement) {
                 $this->flash->error("departement was not found");
 
@@ -88,13 +90,14 @@ class DepartementController extends ControllerBase
                 return;
             }
 
-            $this->view->num_dept = $departement->num_dept;
+            $this->view->id = $departement->id;
 
+            $this->tag->setDefault("id", $departement->id);
             $this->tag->setDefault("num_dept", $departement->num_dept);
             $this->tag->setDefault("libelle", $departement->libelle);
-            $this->tag->setDefault("etablissement_siret", $departement->etablissement_siret);
-            $this->tag->setDefault("contact_cin", $departement->contact_cin);
-
+            $this->tag->setDefault("etablissement_id", $departement->etablissement_id);
+            $this->tag->setDefault("contact_id", $departement->contact_id);
+            
         }
     }
 
@@ -103,7 +106,6 @@ class DepartementController extends ControllerBase
      */
     public function createAction()
     {
-      $this->view->setLayout("private");
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "departement",
@@ -116,9 +118,9 @@ class DepartementController extends ControllerBase
         $departement = new Departement();
         $departement->num_dept = $this->request->getPost("num_dept");
         $departement->libelle = $this->request->getPost("libelle");
-        $departement->etablissement_siret = $this->request->getPost("etablissement_siret");
-        $departement->contact_cin = $this->request->getPost("contact_cin");
-
+        $departement->etablissement_id = $this->request->getPost("etablissement_id");
+        $departement->contact_id = $this->request->getPost("contact_id");
+        
 
         if (!$departement->save()) {
             foreach ($departement->getMessages() as $message) {
@@ -147,7 +149,6 @@ class DepartementController extends ControllerBase
      */
     public function saveAction()
     {
-      $this->view->setLayout("private");
 
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
@@ -158,11 +159,11 @@ class DepartementController extends ControllerBase
             return;
         }
 
-        $num_dept = $this->request->getPost("num_dept");
-        $departement = Departement::findFirstBynum_dept($num_dept);
+        $id = $this->request->getPost("id");
+        $departement = Departement::findFirstByid($id);
 
         if (!$departement) {
-            $this->flash->error("departement does not exist " . $num_dept);
+            $this->flash->error("departement does not exist " . $id);
 
             $this->dispatcher->forward([
                 'controller' => "departement",
@@ -174,9 +175,9 @@ class DepartementController extends ControllerBase
 
         $departement->num_dept = $this->request->getPost("num_dept");
         $departement->libelle = $this->request->getPost("libelle");
-        $departement->etablissement_siret = $this->request->getPost("etablissement_siret");
-        $departement->contact_cin = $this->request->getPost("contact_cin");
-
+        $departement->etablissement_id = $this->request->getPost("etablissement_id");
+        $departement->contact_id = $this->request->getPost("contact_id");
+        
 
         if (!$departement->save()) {
 
@@ -187,7 +188,7 @@ class DepartementController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "departement",
                 'action' => 'edit',
-                'params' => [$departement->num_dept]
+                'params' => [$departement->id]
             ]);
 
             return;
@@ -204,12 +205,11 @@ class DepartementController extends ControllerBase
     /**
      * Deletes a departement
      *
-     * @param string $num_dept
+     * @param string $id
      */
-    public function deleteAction($num_dept)
+    public function deleteAction($id)
     {
-      $this->view->setLayout("private");
-        $departement = Departement::findFirstBynum_dept($num_dept);
+        $departement = Departement::findFirstByid($id);
         if (!$departement) {
             $this->flash->error("departement was not found");
 
@@ -223,7 +223,6 @@ class DepartementController extends ControllerBase
 
         if (!$departement->delete()) {
 
-          $this->view->setLayout("private");
             foreach ($departement->getMessages() as $message) {
                 $this->flash->error($message);
             }
