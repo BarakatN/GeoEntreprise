@@ -2,9 +2,13 @@
 /**
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
+
 ?>
-<?php use Vokuro\Models\Etablissement;
-      use Vokuro\Models\Contact;
+
+<?php
+use Vokuro\Models\Etablissement ;
+use Vokuro\Models\Contact ;
+
 ?>
 <div class="row">
     <nav>
@@ -49,22 +53,29 @@
 <div class="form-group">
     <label for="fieldEtablissementId" class="col-sm-2 control-label">Etablissement</label>
     <div class="col-sm-10">
-      <?php
-        $etablissements=Etablissement::find();
+         <?php
 
-        echo $this->tag->select(['etablissement_id',$etablissements,'using'=>['id','siret']]);
-       ?>
+       $etablissement=Etablissement::find();
+
+       echo $this->tag->select(['etablissement_id',$etablissement,'using'=>['id','siret']]);
+      ?>
+
+
+
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldContactId" class="col-sm-2 control-label">Contact</label>
     <div class="col-sm-10">
-      <?php
-        $contacts=Contact::find();
+         <?php
+       $contact=Contact::find();
+
 
         echo $this->tag->select(['contact_id',$contacts,'using'=>['id','nom']]);
        ?>
+
+      
     </div>
 </div>
 
