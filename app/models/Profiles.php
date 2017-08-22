@@ -1,10 +1,10 @@
 <?php
-namespace Vokuro\Models;
+namespace GeoEntreprise\Models;
 
 use Phalcon\Mvc\Model;
 
 /**
- * Vokuro\Models\Profiles
+ * GeoEntreprise\Models\Profiles
  * All the profile levels in the application. Used in conjenction with ACL lists
  */
 class Profiles extends Model

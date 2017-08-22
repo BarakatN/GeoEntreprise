@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Models;
+namespace GeoEntreprise\Models;
 class Departement extends \Phalcon\Mvc\Model
 {
 
@@ -10,7 +10,7 @@ class Departement extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Id;
+    public $Id_depart;
 
     /**
      *
@@ -31,14 +31,14 @@ class Departement extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Etablissement_id;
+    public $Etablissement_id_etab;
 
     /**
      *
      * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Contact_id;
+    public $Contact_id_contact;
 
     /**
      * Initialize method for model.
@@ -47,8 +47,8 @@ class Departement extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("departement");
-        $this->belongsTo('contact_id', '\Contact', 'id', ['alias' => 'Contact']);
-        $this->belongsTo('etablissement_id', '\Etablissement', 'id', ['alias' => 'Etablissement']);
+        $this->belongsTo('contact_id_contact', '\Contact', 'id_contact', ['alias' => 'Contact']);
+        $this->belongsTo('etablissement_id_etab', '\Etablissement', 'id_etab', ['alias' => 'Etablissement']);
     }
 
     /**

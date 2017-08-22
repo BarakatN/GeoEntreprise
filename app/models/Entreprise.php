@@ -1,6 +1,6 @@
 <?php
 
-namespace Vokuro\Models  ;
+namespace GeoEntreprise\Models  ;
 
 
 class Entreprise extends \Phalcon\Mvc\Model
@@ -13,7 +13,7 @@ class Entreprise extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Id;
+    public $Id_entreprise;
 
     /**
      *
@@ -29,11 +29,18 @@ class Entreprise extends \Phalcon\Mvc\Model
      */
     public $Siren;
 
+        /**
+         *
+         * @var string
+         * @Column(type="string", length=45, nullable=true)
+         */
+    public $Adresse;
     /**
      *
      * @var string
      * @Column(type="string", length=45, nullable=false)
      */
+
     public $Denomination;
 
     /**
@@ -42,13 +49,6 @@ class Entreprise extends \Phalcon\Mvc\Model
      * @Column(type="string", length=45, nullable=false)
      */
     public $Ville;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=45, nullable=false)
-     */
-    public $Pays;
 
     /**
      *
@@ -70,13 +70,6 @@ class Entreprise extends \Phalcon\Mvc\Model
      * @Column(type="string", length=45, nullable=false)
      */
     public $Forme_juridique;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", length=45, nullable=false)
-     */
-    public $Immatriculation;
 
     /**
      *
@@ -106,10 +99,10 @@ class Entreprise extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("entreprise");
-        $this->hasMany('id', 'Categorieemploye', 'entreprise_id', ['alias' => 'Categorieemploye']);
-        $this->hasMany('id', 'DomaineHasEntreprise', 'entreprise_id', ['alias' => 'DomaineHasEntreprise']);
-        $this->hasMany('id', 'Etablissement', 'entreprise_id', ['alias' => 'Etablissement']);
-        $this->hasMany('id', 'Transport', 'entreprise_id', ['alias' => 'Transport']);
+        $this->hasMany('id_entreprise', 'Categorieemploye', 'entreprise_id_entreprise', ['alias' => 'Categorieemploye']);
+        $this->hasMany('id_entreprise', 'DomaineHasEntreprise', 'entreprise_id_entreprise', ['alias' => 'DomaineHasEntreprise']);
+        $this->hasMany('id_entreprise', 'Etablissement', 'entreprise_id_entreprise', ['alias' => 'Etablissement']);
+        $this->hasMany('id_entreprise', 'Transport', 'entreprise_id_entreprise', ['alias' => 'Transport']);
     }
 
     /**

@@ -1,14 +1,14 @@
 <?php
-namespace Vokuro\Acl;
+namespace GeoEntreprise\Acl;
 
 use Phalcon\Mvc\User\Component;
 use Phalcon\Acl\Adapter\Memory as AclMemory;
 use Phalcon\Acl\Role as AclRole;
 use Phalcon\Acl\Resource as AclResource;
-use Vokuro\Models\Profiles;
+use GeoEntreprise\Models\Profiles;
 
 /**
- * Vokuro\Acl\Acl
+ * GeoEntreprise\Acl\Acl
  */
 class Acl extends Component
 {
@@ -229,7 +229,7 @@ class Acl extends Component
 
     /**
      * Adds an array of private resources to the ACL object.
-     * 
+     *
      * @param array $resources
      */
     public function addPrivateResources(array $resources) {

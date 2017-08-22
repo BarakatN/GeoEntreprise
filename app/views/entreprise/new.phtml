@@ -33,84 +33,88 @@
 <div class="form-group">
     <label for="fieldNom" class="col-sm-2 control-label">Nom</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["nom", "size" => 30, "class" => "form-control", "id" => "fieldNom"]) ?>
+        <?php echo $this->tag->textField(["nom", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldNom"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldSiren" class="col-sm-2 control-label">Siren</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["siren", "type" => "number", "class" => "form-control", "id" => "fieldSiren"]) ?>
+        <?php echo $this->tag->textField(["siren", "type" => "number", "class" => "form-control", "id_entreprise" => "fieldSiren"]) ?>
     </div>
 </div>
-
+<div class="form-group">
+    <label for="fieldAdresse" class="col-sm-2 control-label">Adresse</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["adresse", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldAdresse"]) ?>
+    </div>
 <div class="form-group">
     <label for="fieldDenomination" class="col-sm-2 control-label">Denomination</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["denomination", "size" => 30, "class" => "form-control", "id" => "fieldDenomination"]) ?>
+        <?php echo $this->tag->textField(["denomination", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldDenomination"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldVille" class="col-sm-2 control-label">Ville</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["ville", "size" => 30, "class" => "form-control", "id" => "fieldVille"]) ?>
+      <select name="ville" >
+      <?php
+
+      $file = fopen("C:/wamp/www/ville.txt", "r");
+      if ($file) {
+      while (($buffer = fgets($file, 4096)) !==false){ ?>
+      <option value="<?php echo $buffer; ?>"><?php echo $buffer; ?></option>
+      <?php }
+      if (!feof($file)) {
+      echo "Erreur: fgets() a échoué ";
+      }
+      fclose($file);
+      }?>
+      </select>
+
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldPays" class="col-sm-2 control-label">Pays</label>
+    <label for="fieldCodePostal" class="col-sm-2 control-label">Code Postale</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["pays", "size" => 30, "class" => "form-control", "id" => "fieldPays"]) ?>
+        <?php echo $this->tag->textField(["code_postal", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldCodePostal"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldCodePostal" class="col-sm-2 control-label">Code Of Postal</label>
+    <label for="fieldCapitalSocial" class="col-sm-2 control-label">Capital Sociale</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["code_postal", "size" => 30, "class" => "form-control", "id" => "fieldCodePostal"]) ?>
+        <?php echo $this->tag->textField(["capital_social", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldCapitalSocial"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldCapitalSocial" class="col-sm-2 control-label">Capital Of Social</label>
+    <label for="fieldFormeJuridique" class="col-sm-2 control-label">Forme Juridique</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["capital_social", "size" => 30, "class" => "form-control", "id" => "fieldCapitalSocial"]) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldFormeJuridique" class="col-sm-2 control-label">Forme Of Juridique</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textField(["forme_juridique", "size" => 30, "class" => "form-control", "id" => "fieldFormeJuridique"]) ?>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="fieldImmatriculation" class="col-sm-2 control-label">Immatriculation</label>
-    <div class="col-sm-10">
-        <?php echo $this->tag->textField(["immatriculation", "size" => 30, "class" => "form-control", "id" => "fieldImmatriculation"]) ?>
+        <?php echo $this->tag->textField(["forme_juridique", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldFormeJuridique"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldCa" class="col-sm-2 control-label">CA</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["CA", "size" => 30, "class" => "form-control", "id" => "fieldCa"]) ?>
+        <?php echo $this->tag->textField(["CA", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldCa"]) ?>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="fieldDateCreation" class="col-sm-2 control-label">Date Of Creation</label>
+    <label for="fieldDateCreation" class="col-sm-2 control-label">Date De Creation</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["date_creation", "type" => "date", "class" => "form-control", "id" => "fieldDateCreation"]) ?>
+        <?php echo $this->tag->dateField(["date_creation", "type" => "date", "class" => "form-control", "id_entreprise" => "fieldDateCreation"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldRayonnement" class="col-sm-2 control-label">Rayonnement</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["rayonnement", "size" => 30, "class" => "form-control", "id" => "fieldRayonnement"]) ?>
+        <?php echo $this->tag->textField(["rayonnement", "size" => 30, "class" => "form-control", "id_entreprise" => "fieldRayonnement"]) ?>
     </div>
 </div>
 

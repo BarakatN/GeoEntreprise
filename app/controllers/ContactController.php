@@ -1,7 +1,7 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Contact;
+use GeoEntreprise\Models\Contact;
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -30,7 +30,7 @@ class ContactController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Contact', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Contact', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -40,7 +40,7 @@ class ContactController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_contact";
 
         $contact = Contact::find($parameters);
         if (count($contact) == 0) {
@@ -76,12 +76,12 @@ class ContactController extends ControllerBase
      *
      * @param string $id
      */
-    public function editAction($id)
+    public function editAction($id_contact)
     {
 
         if (!$this->request->isPost()) {
 
-            $contact = Contact::findFirstByid($id);
+            $contact = Contact::findFirstByid_contact($id_contact);
             if (!$contact) {
                 $this->flash->error("contact was not found");
 
@@ -93,9 +93,9 @@ class ContactController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $contact->id;
+            $this->view->id_contact= $contact->id_contact;
 
-            $this->tag->setDefault("id", $contact->id);
+            $this->tag->setDefault("id_contact", $contact->id_contact);
             $this->tag->setDefault("cin", $contact->cin);
             $this->tag->setDefault("nom", $contact->nom);
             $this->tag->setDefault("prenom", $contact->prenom);
@@ -165,11 +165,11 @@ class ContactController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $contact = Contact::findFirstByid($id);
+        $id = $this->request->getPost("id_contact");
+        $contact = Contact::findFirstByid_contact($id);
 
         if (!$contact) {
-            $this->flash->error("contact does not exist " . $id);
+            $this->flash->error("contact does not exist " . $id_contact);
 
             $this->dispatcher->forward([
                 'controller' => "contact",
@@ -214,10 +214,10 @@ class ContactController extends ControllerBase
      *
      * @param string $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id_contact)
     {
-      
-        $contact = Contact::findFirstByid($id);
+
+        $contact = Contact::findFirstByid_contact($id_contact);
         if (!$contact) {
             $this->flash->error("contact was not found");
 

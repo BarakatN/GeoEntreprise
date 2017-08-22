@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Auth;
+namespace GeoEntreprise\Auth;
 
 class Exception extends \Exception
 {

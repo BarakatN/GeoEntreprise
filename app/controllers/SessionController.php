@@ -1,13 +1,13 @@
 <?php
 
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Forms\LoginForm;
-use Vokuro\Forms\SignUpForm;
-use Vokuro\Forms\ForgotPasswordForm;
-use Vokuro\Auth\Exception as AuthException;
-use Vokuro\Models\Users;
-use Vokuro\Models\ResetPasswords;
+use GeoEntreprise\Forms\LoginForm;
+use GeoEntreprise\Forms\SignUpForm;
+use GeoEntreprise\Forms\ForgotPasswordForm;
+use GeoEntreprise\Auth\Exception as AuthException;
+use GeoEntreprise\Models\Users;
+use GeoEntreprise\Models\ResetPasswords;
 
 /**
  * Controller used handle non-authenticated session actions like login/logout, user signup, and forgotten passwords

@@ -1,8 +1,8 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\EmailConfirmations;
-use Vokuro\Models\ResetPasswords;
+use GeoEntreprise\Models\EmailConfirmations;
+use GeoEntreprise\Models\ResetPasswords;
 
 /**
  * UserControlController

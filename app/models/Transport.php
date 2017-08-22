@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Models;
+namespace GeoEntreprise\Models;
 class Transport extends \Phalcon\Mvc\Model
 {
 
@@ -10,7 +10,7 @@ class Transport extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Id;
+    public $Id_transport;
 
     /**
      *
@@ -38,7 +38,7 @@ class Transport extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Entreprise_id;
+    public $Entreprise_id_entreprise;
 
     /**
      * Initialize method for model.
@@ -47,7 +47,7 @@ class Transport extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("transport");
-        $this->belongsTo('entreprise_id', '\Entreprise', 'id', ['alias' => 'Entreprise']);
+        $this->belongsTo('entreprise_id_entreprise', '\Entreprise', 'id_entreprise', ['alias' => 'Entreprise']);
     }
 
     /**

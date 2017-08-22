@@ -1,7 +1,7 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Entreprise;
+use GeoEntreprise\Models\Entreprise;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -29,7 +29,7 @@ class EntrepriseController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Entreprise', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Entreprise', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -39,7 +39,7 @@ class EntrepriseController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_entreprise";
 
         $entreprise = Entreprise::find($parameters);
         if (count($entreprise) == 0) {
@@ -73,14 +73,14 @@ class EntrepriseController extends ControllerBase
     /**
      * Edits a entreprise
      *
-     * @param string $id
+     * @param string $id_entreprise
      */
-    public function editAction($id)
+    public function editAction($id_entreprise)
     {
 
         if (!$this->request->isPost()) {
 
-            $entreprise = Entreprise::findFirstByid($id);
+            $entreprise = Entreprise::findFirstByid_entreprise($id_entreprise);
             if (!$entreprise) {
                 $this->flash->error("entreprise was not found");
 
@@ -92,18 +92,17 @@ class EntrepriseController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $entreprise->id;
+            $this->view->id_entreprise = $entreprise->id_entreprise;
 
-            $this->tag->setDefault("id", $entreprise->id);
+            $this->tag->setDefault("id_entreprise", $entreprise->id_entreprise);
             $this->tag->setDefault("nom", $entreprise->nom);
             $this->tag->setDefault("siren", $entreprise->siren);
+            $this->tag->setDefault("adresse", $entreprise->adresse);
             $this->tag->setDefault("denomination", $entreprise->denomination);
             $this->tag->setDefault("ville", $entreprise->ville);
-            $this->tag->setDefault("pays", $entreprise->pays);
             $this->tag->setDefault("code_postal", $entreprise->code_postal);
             $this->tag->setDefault("capital_social", $entreprise->capital_social);
             $this->tag->setDefault("forme_juridique", $entreprise->forme_juridique);
-            $this->tag->setDefault("immatriculation", $entreprise->immatriculation);
             $this->tag->setDefault("CA", $entreprise->CA);
             $this->tag->setDefault("date_creation", $entreprise->date_creation);
             $this->tag->setDefault("rayonnement", $entreprise->rayonnement);
@@ -129,13 +128,12 @@ class EntrepriseController extends ControllerBase
         $entreprise = new Entreprise();
         $entreprise->nom = $this->request->getPost("nom");
         $entreprise->siren = $this->request->getPost("siren");
+        $entreprise->nom = $this->request->getPost("adresse");
         $entreprise->denomination = $this->request->getPost("denomination");
         $entreprise->ville = $this->request->getPost("ville");
-        $entreprise->pays = $this->request->getPost("pays");
         $entreprise->code_postal = $this->request->getPost("code_postal");
         $entreprise->capital_social = $this->request->getPost("capital_social");
         $entreprise->forme_juridique = $this->request->getPost("forme_juridique");
-        $entreprise->immatriculation = $this->request->getPost("immatriculation");
         $entreprise->CA = $this->request->getPost("CA");
         $entreprise->date_creation = $this->request->getPost("date_creation");
         $entreprise->rayonnement = $this->request->getPost("rayonnement");
@@ -178,11 +176,11 @@ class EntrepriseController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $entreprise = Entreprise::findFirstByid($id);
+        $id_entreprise = $this->request->getPost("id_entreprise");
+        $entreprise = Entreprise::findFirstByid_entreprise($id_entreprise);
 
         if (!$entreprise) {
-            $this->flash->error("entreprise does not exist " . $id);
+            $this->flash->error("entreprise does not exist " . $id_entreprise);
 
             $this->dispatcher->forward([
                 'controller' => "entreprise",
@@ -194,13 +192,12 @@ class EntrepriseController extends ControllerBase
 
         $entreprise->nom = $this->request->getPost("nom");
         $entreprise->siren = $this->request->getPost("siren");
+        $entreprise->adresse = $this->request->getPost("adresse");
         $entreprise->denomination = $this->request->getPost("denomination");
         $entreprise->ville = $this->request->getPost("ville");
-        $entreprise->pays = $this->request->getPost("pays");
         $entreprise->code_postal = $this->request->getPost("code_postal");
         $entreprise->capital_social = $this->request->getPost("capital_social");
         $entreprise->forme_juridique = $this->request->getPost("forme_juridique");
-        $entreprise->immatriculation = $this->request->getPost("immatriculation");
         $entreprise->CA = $this->request->getPost("CA");
         $entreprise->date_creation = $this->request->getPost("date_creation");
         $entreprise->rayonnement = $this->request->getPost("rayonnement");
@@ -232,12 +229,12 @@ class EntrepriseController extends ControllerBase
     /**
      * Deletes a entreprise
      *
-     * @param string $id
+     * @param string $id_entreprise
      */
-    public function deleteAction($id)
+    public function deleteAction($id_entreprise)
     {
-      
-        $entreprise = Entreprise::findFirstByid($id);
+
+        $entreprise = Entreprise::findFirstByid_entreprise($id_entreprise);
         if (!$entreprise) {
             $this->flash->error("entreprise was not found");
 

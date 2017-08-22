@@ -1,7 +1,8 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Departement;
+use GeoEntreprise\Models\Departement;
+
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -27,7 +28,7 @@ class DepartementController extends ControllerBase
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Departement', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Departement', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -37,7 +38,7 @@ class DepartementController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_depart";
 
         $departement = Departement::find($parameters);
         if (count($departement) == 0) {
@@ -71,13 +72,13 @@ class DepartementController extends ControllerBase
     /**
      * Edits a departement
      *
-     * @param string $id
+     * @param string $id_depart
      */
-    public function editAction($id)
+    public function editAction($id_depart)
     {
         if (!$this->request->isPost()) {
 
-            $departement = Departement::findFirstByid($id);
+            $departement = Departement::findFirstByid_depart($id_depart);
             if (!$departement) {
                 $this->flash->error("departement was not found");
 
@@ -89,13 +90,13 @@ class DepartementController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $departement->id;
+            $this->view->id_depart = $departement->id_depart;
 
-            $this->tag->setDefault("id", $departement->id);
+            $this->tag->setDefault("id_depart", $departement->id_depart);
             $this->tag->setDefault("num_dept", $departement->num_dept);
             $this->tag->setDefault("libelle", $departement->libelle);
-            $this->tag->setDefault("etablissement_id", $departement->etablissement_id);
-            $this->tag->setDefault("contact_id", $departement->contact_id);
+            $this->tag->setDefault("etablissement_id_etab", $departement->etablissement_id_etab);
+            $this->tag->setDefault("contact_id_contact", $departement->contact_id_contact);
 
         }
     }
@@ -117,8 +118,8 @@ class DepartementController extends ControllerBase
         $departement = new Departement();
         $departement->num_dept = $this->request->getPost("num_dept");
         $departement->libelle = $this->request->getPost("libelle");
-        $departement->etablissement_id = $this->request->getPost("etablissement_id");
-        $departement->contact_id = $this->request->getPost("contact_id");
+        $departement->etablissement_id_etab = $this->request->getPost("etablissement_id_etab");
+        $departement->contact_id_contact = $this->request->getPost("contact_id_contact");
 
 
         if (!$departement->save()) {
@@ -158,11 +159,11 @@ class DepartementController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $departement = Departement::findFirstByid($id);
+        $id_depart = $this->request->getPost("id_depart");
+        $departement = Departement::findFirstByid_depart($id_depart);
 
         if (!$departement) {
-            $this->flash->error("departement does not exist " . $id);
+            $this->flash->error("departement does not exist " . $id_depart);
 
             $this->dispatcher->forward([
                 'controller' => "departement",
@@ -174,8 +175,8 @@ class DepartementController extends ControllerBase
 
         $departement->num_dept = $this->request->getPost("num_dept");
         $departement->libelle = $this->request->getPost("libelle");
-        $departement->etablissement_id = $this->request->getPost("etablissement_id");
-        $departement->contact_id = $this->request->getPost("contact_id");
+        $departement->etablissement_id_etab = $this->request->getPost("etablissement_id_etab");
+        $departement->contact_id_contact = $this->request->getPost("contact_id_contact");
 
 
         if (!$departement->save()) {
@@ -187,7 +188,7 @@ class DepartementController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "departement",
                 'action' => 'edit',
-                'params' => [$departement->id]
+                'params' => [$departement->id_depart]
             ]);
 
             return;
@@ -206,9 +207,9 @@ class DepartementController extends ControllerBase
      *
      * @param string $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id_depart)
     {
-        $departement = Departement::findFirstByid($id);
+        $departement = Departement::findFirstByid_depart($id_depart);
         if (!$departement) {
             $this->flash->error("departement was not found");
 

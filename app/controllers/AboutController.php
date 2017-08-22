@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
 /**
  * Display the "About" page.

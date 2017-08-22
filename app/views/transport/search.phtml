@@ -3,6 +3,7 @@
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
 ?>
+<?php use GeoEntreprise\Models\Entreprise ;?>
 
 <?php use Phalcon\Tag; ?>
 
@@ -36,16 +37,20 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $transport): ?>
+
+
+        <?php foreach ($page->items as $transport):
+              $entreprise=Entreprise::findFirstByid_entreprise($transport->entreprise_id_entreprise );
+          ?>
             <tr>
-                <td><?php echo $transport->id ?></td>
+                <td><?php echo $transport->id_transport ?></td>
             <td><?php echo $transport->matricule ?></td>
             <td><?php echo $transport->modele ?></td>
             <td><?php echo $transport->type ?></td>
-            <td><?php echo $transport->entreprise_id ?></td>
+            <td><?php echo $entreprise->nom ?></td>
 
-                <td><?php echo $this->tag->linkTo(["transport/edit/" . $transport->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["transport/delete/" . $transport->id, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["transport/edit/" . $transport->id_transport, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["transport/delete/" . $transport->id_transport, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

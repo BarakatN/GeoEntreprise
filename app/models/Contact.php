@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Models;
+namespace GeoEntreprise\Models;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
@@ -13,7 +13,7 @@ class Contact extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Id;
+    public $Id_contact;
 
     /**
      *
@@ -79,7 +79,7 @@ class Contact extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("contact");
-        $this->hasMany('id', 'Departement', 'contact_id', ['alias' => 'Departement']);
+        $this->hasMany('id_contact', 'Departement', 'contact_id', ['alias' => 'Departement']);
     }
 
     /**

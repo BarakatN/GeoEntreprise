@@ -29,7 +29,7 @@ return new Config([
         'cryptSalt'      => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'
     ],
     'mail' => [
-        'fromName' => 'Vokuro',
+        'fromName' => 'GeoEntreprise',
         'fromEmail' => 'phosphorum@phalconphp.com',
         'smtp' => [
             'server' => 'smtp.gmail.com',

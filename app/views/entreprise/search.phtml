@@ -28,15 +28,14 @@
                 <th>Id</th>
             <th>Nom</th>
             <th>Siren</th>
+            <th>Adresse</th>
             <th>Denomination</th>
             <th>Ville</th>
-            <th>Pays</th>
-            <th>Code Of Postal</th>
-            <th>Capital Of Social</th>
-            <th>Forme Of Juridique</th>
-            <th>Immatriculation</th>
+            <th>Code Postale</th>
+            <th>Capitale Sociale</th>
+            <th>Forme Juridique</th>
             <th>CA</th>
-            <th>Date Of Creation</th>
+            <th>Date De Creation</th>
             <th>Rayonnement</th>
 
                 <th></th>
@@ -46,22 +45,21 @@
         <tbody>
         <?php foreach ($page->items as $entreprise): ?>
             <tr>
-                <td><?php echo $entreprise->id ?></td>
+                <td><?php echo $entreprise->id_entreprise ?></td>
             <td><?php echo $entreprise->nom ?></td>
             <td><?php echo $entreprise->siren ?></td>
+            <td><?php echo $entreprise->adresse ?></td>
             <td><?php echo $entreprise->denomination ?></td>
             <td><?php echo $entreprise->ville ?></td>
-            <td><?php echo $entreprise->pays ?></td>
             <td><?php echo $entreprise->code_postal ?></td>
             <td><?php echo $entreprise->capital_social ?></td>
             <td><?php echo $entreprise->forme_juridique ?></td>
-            <td><?php echo $entreprise->immatriculation ?></td>
             <td><?php echo $entreprise->CA ?></td>
             <td><?php echo $entreprise->date_creation ?></td>
             <td><?php echo $entreprise->rayonnement ?></td>
 
-                <td><?php echo $this->tag->linkTo(["entreprise/edit/" . $entreprise->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["entreprise/delete/" . $entreprise->id, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["entreprise/edit/" . $entreprise->id_entreprise, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["entreprise/delete/" . $entreprise->id_entreprise, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

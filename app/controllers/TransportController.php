@@ -1,7 +1,7 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Transport;
+use GeoEntreprise\Models\Transport;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -29,7 +29,7 @@ class TransportController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Transport', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Transport', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -39,7 +39,7 @@ class TransportController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_transport";
 
         $transport = Transport::find($parameters);
         if (count($transport) == 0) {
@@ -75,12 +75,12 @@ class TransportController extends ControllerBase
      *
      * @param string $id
      */
-    public function editAction($id)
+    public function editAction($id_transport)
     {
 
         if (!$this->request->isPost()) {
 
-            $transport = Transport::findFirstByid($id);
+            $transport = Transport::findFirstByid_transport($id_transport);
             if (!$transport) {
                 $this->flash->error("transport was not found");
 
@@ -92,13 +92,13 @@ class TransportController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $transport->id;
+            $this->view->id_transport = $transport->id_transport;
 
-            $this->tag->setDefault("id", $transport->id);
+            $this->tag->setDefault("id_transport", $transport->id_transport);
             $this->tag->setDefault("matricule", $transport->matricule);
             $this->tag->setDefault("modele", $transport->modele);
             $this->tag->setDefault("type", $transport->type);
-            $this->tag->setDefault("entreprise_id", $transport->entreprise_id);
+            $this->tag->setDefault("entreprise_id_entreprise", $transport->entreprise_id_entreprise);
 
         }
     }
@@ -122,7 +122,7 @@ class TransportController extends ControllerBase
         $transport->matricule = $this->request->getPost("matricule");
         $transport->modele = $this->request->getPost("modele");
         $transport->type = $this->request->getPost("type");
-        $transport->entreprise_id = $this->request->getPost("entreprise_id");
+        $transport->entreprise_id_entreprise = $this->request->getPost("entreprise_id_entreprise");
 
 
         if (!$transport->save()) {
@@ -162,11 +162,11 @@ class TransportController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $transport = Transport::findFirstByid($id);
+        $id_transport = $this->request->getPost("id_transport");
+        $transport = Transport::findFirstByid_transport($id_transport);
 
         if (!$transport) {
-            $this->flash->error("transport does not exist " . $id);
+            $this->flash->error("transport does not exist " . $id_transport);
 
             $this->dispatcher->forward([
                 'controller' => "transport",
@@ -179,7 +179,7 @@ class TransportController extends ControllerBase
         $transport->matricule = $this->request->getPost("matricule");
         $transport->modele = $this->request->getPost("modele");
         $transport->type = $this->request->getPost("type");
-        $transport->entreprise_id = $this->request->getPost("entreprise_id");
+        $transport->entreprise_id_entreprise = $this->request->getPost("entreprise_id_entreprise");
 
 
         if (!$transport->save()) {
@@ -191,7 +191,7 @@ class TransportController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "transport",
                 'action' => 'edit',
-                'params' => [$transport->id]
+                'params' => [$transport->id_transport]
             ]);
 
             return;
@@ -210,10 +210,10 @@ class TransportController extends ControllerBase
      *
      * @param string $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id_transport)
     {
-      
-        $transport = Transport::findFirstByid($id);
+
+        $transport = Transport::findFirstByid_transport($id_transport);
         if (!$transport) {
             $this->flash->error("transport was not found");
 

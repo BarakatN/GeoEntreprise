@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Mail;
+namespace GeoEntreprise\Mail;
 
 class Exception extends \Exception
 {

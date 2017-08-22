@@ -1,8 +1,7 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Phalcon\Flash\Direct as FlashDirect;
-use Vokuro\Models\Etablissement;
+use GeoEntreprise\Models\Etablissement;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -19,7 +18,6 @@ class EtablissementController extends ControllerBase
     public function indexAction()
     {
         $this->persistent->parameters = null;
-
     }
 
     /**
@@ -27,10 +25,9 @@ class EtablissementController extends ControllerBase
      */
     public function searchAction()
     {
-
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Etablissement', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Etablissement', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -40,7 +37,7 @@ class EtablissementController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_etab";
 
         $etablissement = Etablissement::find($parameters);
         if (count($etablissement) == 0) {
@@ -74,14 +71,13 @@ class EtablissementController extends ControllerBase
     /**
      * Edits a etablissement
      *
-     * @param string $id
+     * @param string $id_etab
      */
-    public function editAction($id)
+    public function editAction($id_etab)
     {
-
         if (!$this->request->isPost()) {
 
-            $etablissement = Etablissement::findFirstByid($id);
+            $etablissement = Etablissement::findFirstByid_etab($id_etab);
             if (!$etablissement) {
                 $this->flash->error("etablissement was not found");
 
@@ -93,13 +89,14 @@ class EtablissementController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $etablissement->id;
+            $this->view->id_etab = $etablissement->id_etab;
 
-            $this->tag->setDefault("id", $etablissement->id);
+            $this->tag->setDefault("id_etab", $etablissement->id_etab);
+            $this->tag->setDefault("nom", $etablissement->nom);
             $this->tag->setDefault("siret", $etablissement->siret);
             $this->tag->setDefault("longitude", $etablissement->longitude);
             $this->tag->setDefault("altitude", $etablissement->altitude);
-            $this->tag->setDefault("entreprise_id", $etablissement->entreprise_id);
+            $this->tag->setDefault("entreprise_id_entreprise", $etablissement->entreprise_id_entreprise);
 
         }
     }
@@ -109,7 +106,6 @@ class EtablissementController extends ControllerBase
      */
     public function createAction()
     {
-
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "etablissement",
@@ -120,10 +116,11 @@ class EtablissementController extends ControllerBase
         }
 
         $etablissement = new Etablissement();
+        $etablissement->nom = $this->request->getPost("nom");
         $etablissement->siret = $this->request->getPost("siret");
         $etablissement->longitude = $this->request->getPost("longitude");
         $etablissement->altitude = $this->request->getPost("altitude");
-        $etablissement->entreprise_id = $this->request->getPost("entreprise_id");
+        $etablissement->entreprise_id_entreprise = $this->request->getPost("entreprise_id_entreprise");
 
 
         if (!$etablissement->save()) {
@@ -163,11 +160,11 @@ class EtablissementController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $etablissement = Etablissement::findFirstByid($id);
+        $id_etab = $this->request->getPost("id_etab");
+        $etablissement = Etablissement::findFirstByid_etab($id_etab);
 
         if (!$etablissement) {
-            $this->flash->error("etablissement does not exist " . $id);
+            $this->flash->error("etablissement does not exist " . $id_etab);
 
             $this->dispatcher->forward([
                 'controller' => "etablissement",
@@ -176,11 +173,11 @@ class EtablissementController extends ControllerBase
 
             return;
         }
-
+        $etablissement->nom = $this->request->getPost("nom");
         $etablissement->siret = $this->request->getPost("siret");
         $etablissement->longitude = $this->request->getPost("longitude");
         $etablissement->altitude = $this->request->getPost("altitude");
-        $etablissement->entreprise_id = $this->request->getPost("entreprise_id");
+        $etablissement->entreprise_id_entreprise = $this->request->getPost("entreprise_id_entreprise");
 
 
         if (!$etablissement->save()) {
@@ -192,7 +189,7 @@ class EtablissementController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "etablissement",
                 'action' => 'edit',
-                'params' => [$etablissement->id]
+                'params' => [$etablissement->id_etab]
             ]);
 
             return;
@@ -209,12 +206,11 @@ class EtablissementController extends ControllerBase
     /**
      * Deletes a etablissement
      *
-     * @param string $id
+     * @param string $id_etab
      */
-    public function deleteAction($id)
+    public function deleteAction($id_etab)
     {
-      
-        $etablissement = Etablissement::findFirstByid($id);
+        $etablissement = Etablissement::findFirstByid_etab($id_etab);
         if (!$etablissement) {
             $this->flash->error("etablissement was not found");
 

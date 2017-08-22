@@ -1,5 +1,5 @@
 <?php
-namespace Vokuro\Models;
+namespace GeoEntreprise\Models;
 class Etablissement extends \Phalcon\Mvc\Model
 {
 
@@ -10,26 +10,31 @@ class Etablissement extends \Phalcon\Mvc\Model
      * @Identity
      * @Column(type="integer", length=11, nullable=false)
      */
-    public $Id;
+    public $Id_etab;
 
     /**
      *
      * @var integer
-     * @Column(type="integer", length=11, nullable=true)
+     * @Column(type="integer", length=11, nullable=false)
      */
     public $Siret;
-
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
+     */
+    public $Nom;
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=false)
      */
     public $Longitude;
 
     /**
      *
      * @var string
-     * @Column(type="string", nullable=true)
+     * @Column(type="string", nullable=false)
      */
     public $Altitude;
 
@@ -38,7 +43,7 @@ class Etablissement extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=11, nullable=true)
      */
-    public $Entreprise_id;
+    public $Entreprise_id_entreprise;
 
     /**
      * Initialize method for model.
@@ -47,8 +52,8 @@ class Etablissement extends \Phalcon\Mvc\Model
     {
         $this->setSchema("vokuro");
         $this->setSource("etablissement");
-        $this->hasMany('id', 'Departement', 'etablissement_id', ['alias' => 'Departement']);
-        $this->belongsTo('entreprise_id', '\Entreprise', 'id', ['alias' => 'Entreprise']);
+        $this->hasMany('id_etab', 'Departement', 'etablissement_id_etab', ['alias' => 'Departement']);
+        $this->belongsTo('entreprise_id_entreprise', '\Entreprise', 'id_entreprise', ['alias' => 'Entreprise']);
     }
 
     /**

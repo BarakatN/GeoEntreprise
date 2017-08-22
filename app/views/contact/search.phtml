@@ -30,7 +30,7 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Email</th>
-            <th>Date Of Affectation</th>
+            <th>Date d' Affectation</th>
 
                 <th></th>
                 <th></th>
@@ -39,15 +39,15 @@
         <tbody>
         <?php foreach ($page->items as $contact): ?>
             <tr>
-                <td><?php echo $contact->id ?></td>
+                <td><?php echo $contact->id_contact ?></td>
             <td><?php echo $contact->cin ?></td>
             <td><?php echo $contact->nom ?></td>
             <td><?php echo $contact->prenom ?></td>
             <td><?php echo $contact->email ?></td>
             <td><?php echo $contact->date_affectation ?></td>
 
-                <td><?php echo $this->tag->linkTo(["contact/edit/" . $contact->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["contact/delete/" . $contact->id, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["contact/edit/" . $contact->id_contact, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["contact/delete/" . $contact->id_contact, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

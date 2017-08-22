@@ -1,7 +1,7 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Domaine;
+use GeoEntreprise\Models\Domaine;
 
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -28,7 +28,7 @@ class DomaineController extends ControllerBase
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Vokuro\Models\Domaine', $_POST);
+            $query = Criteria::fromInput($this->di, 'GeoEntreprise\Models\Domaine', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -38,7 +38,7 @@ class DomaineController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "id_domaine";
 
         $domaine = Domaine::find($parameters);
         if (count($domaine) == 0) {
@@ -74,11 +74,11 @@ class DomaineController extends ControllerBase
      *
      * @param string $id
      */
-    public function editAction($id)
+    public function editAction($id_domaine)
     {
         if (!$this->request->isPost()) {
 
-            $domaine = Domaine::findFirstByid($id);
+            $domaine = Domaine::findFirstByid_domained($id_domaine);
             if (!$domaine) {
                 $this->flash->error("domaine was not found");
 
@@ -90,9 +90,9 @@ class DomaineController extends ControllerBase
                 return;
             }
 
-            $this->view->id = $domaine->id;
+            $this->view->id_domaine = $domaine->id_domaine;
 
-            $this->tag->setDefault("id", $domaine->id);
+            $this->tag->setDefault("id_domaine", $domaine->id_domaine);
             $this->tag->setDefault("nom", $domaine->nom);
             $this->tag->setDefault("description", $domaine->description);
 
@@ -155,11 +155,11 @@ class DomaineController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost("id");
-        $domaine = Domaine::findFirstByid($id);
+        $id_domaine = $this->request->getPost("id_domaine");
+        $domaine = Domaine::findFirstByid_domaine($id_domaine);
 
         if (!$domaine) {
-            $this->flash->error("domaine does not exist " . $id);
+            $this->flash->error("domaine does not exist " . $id_domaine);
 
             $this->dispatcher->forward([
                 'controller' => "domaine",
@@ -182,7 +182,7 @@ class DomaineController extends ControllerBase
             $this->dispatcher->forward([
                 'controller' => "domaine",
                 'action' => 'edit',
-                'params' => [$domaine->id]
+                'params' => [$domaine->id_domaine]
             ]);
 
             return;
@@ -201,9 +201,9 @@ class DomaineController extends ControllerBase
      *
      * @param string $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id_domaine)
     {
-        $domaine = Domaine::findFirstByid($id);
+        $domaine = Domaine::findFirstByid($id_domaine);
         if (!$domaine) {
             $this->flash->error("domaine was not found");
 

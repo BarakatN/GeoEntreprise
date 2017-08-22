@@ -1,8 +1,8 @@
 <?php
-namespace Vokuro\Controllers;
+namespace GeoEntreprise\Controllers;
 
-use Vokuro\Models\Profiles;
-use Vokuro\Models\Permissions;
+use GeoEntreprise\Models\Profiles;
+use GeoEntreprise\Models\Permissions;
 
 /**
  * View and define permissions for the various profile levels.

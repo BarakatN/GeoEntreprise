@@ -3,7 +3,7 @@
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
 ?>
-
+<?php use GeoEntreprise\Models\Entreprise ;?>
 <?php use Phalcon\Tag; ?>
 
 <div class="row">
@@ -25,7 +25,8 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
+            <th>Etab</th>
+            <th>Nom</th>
             <th>Siret</th>
             <th>Longitude</th>
             <th>Altitude</th>
@@ -36,16 +37,19 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($page->items as $etablissement): ?>
+        <?php foreach ($page->items as $etablissement):
+              $entreprise=Entreprise::findFirstByid_entreprise($etablissement->entreprise_id_entreprise);
+          ?>
             <tr>
-                <td><?php echo $etablissement->id ?></td>
+            <td><?php echo $etablissement->id_etab ?></td>
+            <td><?php echo $etablissement->nom?></td>
             <td><?php echo $etablissement->siret ?></td>
             <td><?php echo $etablissement->longitude ?></td>
             <td><?php echo $etablissement->altitude ?></td>
-            <td><?php echo $etablissement->entreprise_id ?></td>
+            <td><?php echo $entreprise->nom ?></td>
 
-                <td><?php echo $this->tag->linkTo(["etablissement/edit/" . $etablissement->id, "Edit"]); ?></td>
-                <td><?php echo $this->tag->linkTo(["etablissement/delete/" . $etablissement->id, "Delete"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["etablissement/edit/" . $etablissement->id_etab, "Edit"]); ?></td>
+                <td><?php echo $this->tag->linkTo(["etablissement/delete/" . $etablissement->id_etab, "Delete"]); ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

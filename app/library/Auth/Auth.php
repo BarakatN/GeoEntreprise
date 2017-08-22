@@ -1,15 +1,15 @@
 <?php
-namespace Vokuro\Auth;
+namespace GeoEntreprise\Auth;
 
 use Phalcon\Mvc\User\Component;
-use Vokuro\Models\Users;
-use Vokuro\Models\RememberTokens;
-use Vokuro\Models\SuccessLogins;
-use Vokuro\Models\FailedLogins;
+use GeoEntreprise\Models\Users;
+use GeoEntreprise\Models\RememberTokens;
+use GeoEntreprise\Models\SuccessLogins;
+use GeoEntreprise\Models\FailedLogins;
 
 /**
- * Vokuro\Auth\Auth
- * Manages Authentication/Identity Management in Vokuro
+ * GeoEntreprise\Auth\Auth
+ * Manages Authentication/Identity Management in GeoEntreprise
  */
 class Auth extends Component
 {
@@ -57,7 +57,7 @@ class Auth extends Component
     /**
      * Creates the remember me environment settings the related cookies and generating tokens
      *
-     * @param \Vokuro\Models\Users $user
+     * @param \GeoEntreprise\Models\Users $user
      * @throws Exception
      */
     public function saveSuccessLogin($user)
@@ -112,7 +112,7 @@ class Auth extends Component
     /**
      * Creates the remember me environment settings the related cookies and generating tokens
      *
-     * @param \Vokuro\Models\Users $user
+     * @param \GeoEntreprise\Models\Users $user
      */
     public function createRememberEnvironment(Users $user)
     {
@@ -199,7 +199,7 @@ class Auth extends Component
     /**
      * Checks if the user is banned/inactive/suspended
      *
-     * @param \Vokuro\Models\Users $user
+     * @param \GeoEntreprise\Models\Users $user
      * @throws Exception
      */
     public function checkUserFlags(Users $user)
@@ -278,7 +278,7 @@ class Auth extends Component
     /**
      * Get the entity related to user in the active identity
      *
-     * @return \Vokuro\Models\Users
+     * @return \GeoEntreprise\Models\Users
      * @throws Exception
      */
     public function getUser()

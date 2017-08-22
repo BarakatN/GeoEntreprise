@@ -2,13 +2,9 @@
 /**
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
-
 ?>
-
-<?php
-use Vokuro\Models\Etablissement ;
-use Vokuro\Models\Contact ;
-
+<?php use GeoEntreprise\Models\Etablissement;
+      use GeoEntreprise\Models\Contact;
 ?>
 <div class="row">
     <nav>
@@ -37,45 +33,38 @@ use Vokuro\Models\Contact ;
 ?>
 
 <div class="form-group">
-    <label for="fieldNumDept" class="col-sm-2 control-label">Num Of Dept</label>
+    <label for="fieldNumDept" class="col-sm-2 control-label">Num Dept</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["num_dept", "type" => "number", "class" => "form-control", "id" => "fieldNumDept"]) ?>
+        <?php echo $this->tag->textField(["num_dept", "type" => "number", "class" => "form-control", "id_depart" => "fieldNumDept"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldLibelle" class="col-sm-2 control-label">Libelle</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["libelle", "size" => 30, "class" => "form-control", "id" => "fieldLibelle"]) ?>
+        <?php echo $this->tag->textField(["libelle", "size" => 30, "class" => "form-control", "id_depart" => "fieldLibelle"]) ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldEtablissementId" class="col-sm-2 control-label">Etablissement</label>
     <div class="col-sm-10">
-         <?php
+      <?php
+        $etablissements=Etablissement::find();
 
-       $etablissement=Etablissement::find();
-
-       echo $this->tag->select(['etablissement_id',$etablissement,'using'=>['id','siret']]);
-      ?>
-
-
-
+        echo $this->tag->select(['etablissement_id_etab',$etablissements,'using'=>['id_etab','siret']]);
+       ?>
     </div>
 </div>
 
 <div class="form-group">
     <label for="fieldContactId" class="col-sm-2 control-label">Contact</label>
     <div class="col-sm-10">
-         <?php
-       $contact=Contact::find();
+      <?php
+        $contacts=Contact::find();
 
-
-        echo $this->tag->select(['contact_id',$contacts,'using'=>['id','nom']]);
+        echo $this->tag->select(['contact_id_contact',$contacts,'using'=>['id_contact','nom']]);
        ?>
-
-      
     </div>
 </div>
 

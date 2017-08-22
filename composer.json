@@ -27,6 +27,11 @@
         "swiftmailer/swiftmailer": "^5.4",
         "aws/aws-sdk-php": "~3.0"
     },
+
+    "require":
+    {
+        "namnv609/php-rest-countries": "^1.0.0"
+    },
     "require-dev": {
         "phalcongelist/dd": "~1.0"
     }

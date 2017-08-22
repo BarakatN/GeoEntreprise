@@ -22,8 +22,11 @@
               'Domaine':'domaine',
               'Etablissement':'etablissement',
                'Contact': 'contact',
+               'Transport':'transport',
+               'dom_entr':'domaine_has_entreprise'
 
-              'Transport':'transport'
+
+
 
 
 
